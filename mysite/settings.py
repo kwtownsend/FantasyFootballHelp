@@ -40,6 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'webapp',
+    'login',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,21 +58,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'mysite.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates"
+    # Always put forward slashes, even on Windows
+    # Don't forget to use absolute paths, not relative paths
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
