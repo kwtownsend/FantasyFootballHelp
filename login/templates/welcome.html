@@ -2,70 +2,17 @@
   {% block title %}Welcome Page{% endblock %}
   {% block head %}Welcome{% endblock %}
   {% block content %}
+
   <div class="container">
     <div class="row stuff">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 books">
-        <h4><strong>Books</strong></h4>
-        <div class="text-center">
-          <a href="#"><i class="fa fa-book fa-5x"></i></a>
-        </div>
-        <br/>
-        <p class='countTeaser'>Our members are sharing {{ bookCount }} book{{ bookCount|pluralize }}!
-        </p>
-      </div>
 
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 music">
-        <h4><strong>Music</strong></h4>
-        <div class="text-center">
-          <a href="#"><i class="fa fa-music fa-5x"></i></a>
-        </div>
-        <br/>
-        <p class='countTeaser'>Our members are sharing {{ musicCount }} music thingy{{ musicCount|pluralize }}!
-        </p>
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 movies">
-        <h4><strong>Movies</strong></h4>
-        <div class="text-center">
-          <a href="#"><i class="fa fa-film fa-5x"></i></a>
-        </div>
-        <br/>
-        <p class='countTeaser'>Our members are sharing {{ movieCount }} movie{{ movieCount|pluralize }}!</p>
-      </div>
-      
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 games">
-        <h4><strong>Games</strong></h4>
-        <div class="text-center">
-          <a href="#"><i class="fa fa-gamepad fa-5x"></i></a>
-        </div>
-        <br/>
-        <p class='countTeaser'>Our members are sharing {{ gameCount }} game{{ gameCount|pluralize }}!
-        </p>
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 sports">
-        <h4><strong>Sports</strong></h4>
-        <div class="text-center">
-          <a href="#"><i class="fa fa-futbol-o fa-5x"></i></a>
-        </div>
-        <br/>
-        <p class='countTeaser'>Our members are sharing {{ sportCount }} sports thingy{{ sportCount|pluralize }}!</p>
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 tools">
-        <h4><strong>Tools</strong></h4>
-        <div class="text-center">
-          <a href="#"><i class="fa fa-wrench fa-5x"></i></a>
-        </div>
-        <br/>
-        <p class='countTeaser'>Our members are sharing {{ toolCount }} tool{{ toolCount|pluralize }}!
-        </p>
+        <h1> "this is welcome.html" </h1>
       </div> 
       
     </div>
   </div>
   <!-- <strong>~/login/templates/welcome.html template being used</strong> -->
-  {% include "partial_base_footer.html" %}
+  {% include "partial_base_ footer.html" %}
   <!-- TODO: This needs to be completely re-thought  -->
   <!-- We need a definite langing page for new visitors,  -->
   <!-- and now we've got functionality all over the place -->
