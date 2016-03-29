@@ -22,7 +22,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^$', welcome, name="welcome"),
+                       url(r'^$', welcome),
                        url(r'^login/$', 'django.contrib.auth.views.login', name="login"),
                        url(r'^logout/$', logout_page),
                        url(r'^accounts/login/$', 'django.contrib.auth.views.login'), # If user is not login it will redirect to login page

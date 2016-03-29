@@ -72,6 +72,11 @@ def home(request):
     { 'user': request.user }
     )
 
+def welcome(request):
+    return render_to_response(
+        'welcome.html',
+        context_instance=RequestContext(request),
+    )   
 
 # @csrf_protect
 # def register(request):
@@ -146,11 +151,11 @@ def home(request):
 #         return qs
 
 
-def welcome(request):
-    return render_to_response(
-            'welcome.html',
-            # context_instance=context,
-    )
+# def welcome(request):
+#     return render_to_response(
+#             'welcome.html',
+#             # context_instance=context,
+#     )
 
 
 # def about(request):
