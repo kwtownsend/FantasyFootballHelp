@@ -1,86 +1,45 @@
-<!-- Home page navbar for logged-in members -->
+<!-- Home page navbar for unregistered/new visitors -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-                <img class="backpackImg" alt="Magenta Backpack" src="{{ STATIC_URL }}img/football_30px.png">
-            </a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{% url 'thingys:mylist' %}">My Thingys <span class="fa-stack">
-          <i class="fa fa-circle fa-stack-2x" style="color:{{ my_thingys_color }}"></i>
-          <strong class="fa-stack-1x fa-stack-text">{{ my_thingys_count }}</strong>
-          </span></a>
-                </li>
-
-                <li><a href="{% url 'thingys:list' %}">Browse Thingys<span class="fa-stack">
-          <i class="fa fa-circle fa-stack-2x" style="color:{{ browse_notice_color }}"></i>
-          <strong class="fa-stack-1x fa-stack-text">{{ available_thingys }}</strong>
-          </span></a>
-                </li>
-
-                <li><a href="{% url 'asks:list' %}">Requests <span class="fa-stack">
-          <i class="fa fa-circle fa-stack-2x" style="color:{{ requests_notice_color }}"></i>
-          <strong class="fa-stack-1x fa-stack-text">{{ requests_count }}</strong>
-          </span></a>
-                </li>
-
-                <li><a href="{% url 'lends:borrowlist' %}">Borrowed <span class="fa-stack">
-          <i class="fa fa-circle fa-stack-2x" style="color:{{ borrowed_notice_color }}"></i>
-          <strong class="fa-stack-1x fa-stack-text">{{ borrowed }}</strong>
-          </span></a>
-                </li>
-
-                <li><a href="{% url 'lends:list' %}">Loaned <span class="fa-stack">
-          <i class="fa fa-circle fa-stack-2x" style="color:{{ loaned_notice_color }}"></i>
-          <strong class="fa-stack-1x fa-stack-text">{{ loaned }}</strong>
-          </span></a>
-                </li>
-                <li>
-                    <form method="get" action="/search" id="searchbox52" class="navbar-form navbar-left text-center" >
-                        <input id="search52" name="q" type="text" placeholder="Search..." />
-                    </form>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <!-- <li><a href="{% url 'clubs:list' %}">Clubs</a></li> -->
-                <!-- <li><a href="/logout">Logout</a></li> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clubs&nbsp;<i class="fa fa-group"></i><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>My clubs</li>
-                        {% for club in clubs %}
-                            <li><a href="{% url 'clubs:detail' club.pk %}">{{ club.name }}</a></li>
-                        {% endfor %}
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{% url 'clubs:list' %}">All Clubs</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user }}&nbsp;<i class="fa fa-user"></i><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'members:detail' user.pk %}">My Info&nbsp;<i class="fa fa-cog fa-fw"></i></a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+      <img class="backpackImg" alt="Magenta Backpack" src="{{ STATIC_URL }}img/football_30px.png">
+      </a>
     </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="/compare">Compare Players</a></li>
+            <li><a href="/manage">Manage Teams</a></li>
+            <li><a href="/search">Search Players</a></li>
+            <li class="dropdown">
+
+            </li>
+        </ul>      
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li ><a href="/">Home <span class="sr-only">(current)</span></a></li> -->
+            <!-- <li><a href="/logout">Logout</a></li> -->
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user }} <i class="fa fa-user"></i><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+            </li>        
+      </ul>
+      <form method="get" action="/search" id="searchbox52" class="navbar-form navbar-left text-center">
+        <input id="search52" name="q" type="text" placeholder="Search..." />
+      </form>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
 </nav>
-<!--<script src="{{ STATIC_URL }}js/navbar_controller.js"></script>
-  <script>
-    $(document).ready(function() {
-        window.fadeIn('slow');
-    });
-  </script>
-  -->

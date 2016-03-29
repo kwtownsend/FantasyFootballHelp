@@ -30,10 +30,10 @@
 <!-- <body style='background: url("http://divtagtemplates.com/wp-content/uploads/2012/11/11.jpg") no-repeat center center fixed;'> -->
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% if user.is_anonymous %}
-    {% include "home_navbar.html" %}
-{% else %}
+{% if user.is_authenticated %}
     {% include "base_navbar.html" %}
+{% else %}
+    {% include "home_navbar.html" %}
 {% endif %}
 <!-- <h1>{% block title %}{% endblock %}</h1>
       <h1>{% block head %}{% endblock %}</h1> -->
