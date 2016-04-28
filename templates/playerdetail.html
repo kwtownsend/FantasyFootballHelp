@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+<div class="container">
+    <div class="row">
+        <!-- {% block title %}Welcome Back{% endblock %} -->
+        <!-- {% block head %}Welcome, {{ user.first_name|upper }}{% endblock %} -->
+        {% block content %}
+            <div class="col-md-4"></div>
+            <div class="container col-md-4">
+            <h3>Player Detail View</h3>
+            <h5 style="color:darkorange"><b>Database Item: </b>{{ Players.pk }}</h5>
+            {# TODO: Delete Database Item key from template #}
+             <table style="width:100%">
+  <tr>
+    <td>Player: </b> </td>
+    <td>Position: </b></td>
+    <td>Fantasy Points </b></td>
+    <td>Fantasy PPG </b> </td>
+    <td>Games Played </b></td>
+    <td>Passing Yards </b> </td>
+    <td>Passing TDs </b> </td>
+    <td>Rushing YDs </b> </td>
+    <td>Rushing TDs </b> </td>
+    <td>Receiving YDs </b> </td>
+    <td>Receiving TDs </b> </td>
+    <td>Fumbles Lost </b> </td>
+    <td>Sacks </b> </td>
+    <td>Fumbles Recovered </b> </td>
+    <td>Interceptions </b> </td>
+    <td>Defensive TDs </b> </td>{{Players.pos}}
+    <td>Safeties </b{{Players.fpts}}</td>
+    <td>Field Goals </b> </td>
+    <td>Field Goals Missed </b> </td>
+    <td>Extra Points </b> </td>
+  </tr>
+  <tr>
+    <td>{{Players.name}}</td>
+    <td>{{Players.pos}}</td>
+    <td>{{Players.fptsrecyds}}</td>
+    <td>{{Players.fptsg}}</td>
+    <td>{{Players.gp}}</td>
+    <td>{{Players.pyds}}</td>
+    <td>{{Players.ptd}}</td>
+    <td>{{Players.ryd}}</td>
+    <td>{{Players.rtd}}</td>
+    <td>{{Players.recyds}}</td>
+    <td>{{Players.rectd}}</td>
+    <td>{{Players.fum}}</td>
+    <td>{{Players.sack}}</td>
+    <td>{{Players.fr}}</td>
+    <td>{{Players.intercept}}</td>
+    <td>{{Players.td}}</td>
+    <td>{{Players.sfty}}</td>
+    <td>{{Players.fg}}</td>
+    <td>{{Players.fgmiss}}</td>
+    <td>{{Players.xpt}}</td>
+  </tr>
+</table> 
+
+<a href="{<!-- % url 'asks:requestingNew' Players.pk % -->}" class="btn btn-lg btn-primary btn-block">Add to Queue</a>
+{% endblock %}
+        </div>
+        <div class="col-md-4"></div>
