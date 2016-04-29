@@ -1,24 +1,95 @@
-from django.shortcuts import render
-from .models import ClubMember
-
-# for I18N
 from django.utils.translation import ugettext as _
+from django.contrib import messages
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from braces.views import LoginRequiredMixin
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 # TSoD page 98, Class-based views
 from django.core.urlresolvers import reverse
 # end TSoD
-# signals.receiver
-from django.db.models import signals
+from django.http import Http404, HttpResponseRedirect
+# from clubs.models import Club
+from django.contrib.auth.models import User
+# from clubMembers.models import ClubMember
 
-from django.http import Http404
-
-from django.views.generic import DetailView, UpdateView, DeleteView, ListView
-from braces.views import LoginRequiredMixin
-from django.contrib import messages
+from .models import Player  #player class
+# from thingys.forms.thingy_forms import new_thingy_form
 
 from helpers.navbar_helpers import NavBarMixin
-from django.contrib import messages
-from django.contrib.auth.models import User
+# from helpers.backpack_helpers import user_relation, member_relations, thingy_available_for_request
+# from helpers.backpack_helpers import thingy_requested_by_user, thingy_request_accepted_for_user
+# from helpers.backpack_helpers import ask_borrow_object_for_owner
+
+
+
+# from django.shortcuts import render
+# # from .models import ClubMember
+# from Players.models import Player
+# from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+# # for I18N
+# from django.utils.translation import ugettext as _
+
+# # TSoD page 98, Class-based views
+# from django.core.urlresolvers import reverse
+# # end TSoD
+# # signals.receiver
+# from django.db.models import signals
+
+# from django.http import Http404
+
+# from django.views.generic import DetailView, UpdateView, DeleteView, ListView
+# from braces.views import LoginRequiredMixin
+# from django.contrib import messages
+
+# from helpers.navbar_helpers import NavBarMixin
+# from django.contrib import messages
+# from django.contrib.auth.models import User
+
+class PlayerActionMixin(object):
+    fields = ('name', 'pos', 'fpts', 'fptsg', 'gp', 'pyds', 'ptd', 'ryd', 'rtd', 'recyds', 'rectd', 'fum', 'sack', 
+        'fr', 'intercept', 'td', 'sfty', 'fg', 'fgmiss', 'xpt')
+
+    @property
+    def success_msg(self):
+        return NotImplemented
+
+    def form_valid(self, form):
+        messages.info(self.request, self.success_msg)
+        return super(PlayerActionMixin, self).form_valid(form)
+
+    # def is_owner(self, thingy):
+    #     if thingy.owner == self.request.user:
+    #         return True
+        return False
+
+
+class PlayerDetailView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, DetailView):
+    model = Player
+    template_name = "Players/player_detail.html"
+    page_title = _("Available Player Detail")
+
+    def get(self, request, *args, **kwargs):
+        thingy = self.get_object(queryset=None)
+        # object_owner_member = ClubMember.objects.get(member=thingy.owner)
+        # requesting_member = ClubMember.objects.get(member=request.user)
+        # relationship = user_relation(thingy.owner, request.user)
+        # print(relationship)
+        # if relationship == "clubRelated":
+        return super(PlayerDetailView, self).get(self, request, *args, **kwargs)
+        # if relationship == "notRelated":
+        #     print(" *******\nuser is trying to access non members thingys through url tweaking")
+        #     print(request.user.username)
+        #     print("is the user trying it\n *******")
+        #     return HttpResponseRedirect(redirect_to=reverse('welcome'))
+
+
+class ThingySearchView(NavBarMixin, ListView):
+    model = Player
+    page_title = _("Thingy Search View")
+
+
+
 
 # @staff_member_required
 # def import(request):

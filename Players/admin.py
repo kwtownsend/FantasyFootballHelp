@@ -5,7 +5,7 @@ from Players.models import Player
 class PlayersAdmin(admin.ModelAdmin):
     # fields = ['shortDescription', 'owner', 'lendable']
     list_display = ('name', 'pos', 'fpts', 'fptsg', 'gp', 'pyds', 'ptd', 'ryd', 'rtd', 'recyds', 'rectd', 'fum', 'sack', 
-    	'fr', 'intercept', 'td', 'sfty', 'fg', 'fgmiss', 'xpt')
+    	'fr', 'intercept', 'td', 'sfty', 'fg', 'fgmiss', 'xpt', 'pk')
     # list_filter = ['lendable', 'owner', 'thingy_type']
     # date_hierarchy = 'add_date'
     # fields = (('shortDescription', 'owner'), 'lendable')
