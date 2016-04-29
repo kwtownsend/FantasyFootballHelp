@@ -17,34 +17,6 @@ from .models import Player  #player class
 # from thingys.forms.thingy_forms import new_thingy_form
 
 from helpers.navbar_helpers import NavBarMixin
-# from helpers.backpack_helpers import user_relation, member_relations, thingy_available_for_request
-# from helpers.backpack_helpers import thingy_requested_by_user, thingy_request_accepted_for_user
-# from helpers.backpack_helpers import ask_borrow_object_for_owner
-
-
-
-# from django.shortcuts import render
-# # from .models import ClubMember
-# from Players.models import Player
-# from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-# # for I18N
-# from django.utils.translation import ugettext as _
-
-# # TSoD page 98, Class-based views
-# from django.core.urlresolvers import reverse
-# # end TSoD
-# # signals.receiver
-# from django.db.models import signals
-
-# from django.http import Http404
-
-# from django.views.generic import DetailView, UpdateView, DeleteView, ListView
-# from braces.views import LoginRequiredMixin
-# from django.contrib import messages
-
-# from helpers.navbar_helpers import NavBarMixin
-# from django.contrib import messages
-# from django.contrib.auth.models import User
 
 class PlayerActionMixin(object):
     fields = ('name', 'pos', 'fpts', 'fptsg', 'gp', 'pyds', 'ptd', 'ryd', 'rtd', 'recyds', 'rectd', 'fum', 'sack', 
@@ -70,7 +42,7 @@ class PlayerDetailView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Detai
     page_title = _("Available Player Detail")
 
     def get(self, request, *args, **kwargs):
-        thingy = self.get_object(queryset=None)
+        player = self.get_object(queryset=None)
         # object_owner_member = ClubMember.objects.get(member=thingy.owner)
         # requesting_member = ClubMember.objects.get(member=request.user)
         # relationship = user_relation(thingy.owner, request.user)
@@ -84,11 +56,41 @@ class PlayerDetailView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Detai
         #     return HttpResponseRedirect(redirect_to=reverse('welcome'))
 
 
-class ThingySearchView(NavBarMixin, ListView):
+class PlayerSearchView(NavBarMixin, ListView):
     model = Player
     page_title = _("Thingy Search View")
 
 
+# class PlayerDetailView(LoginRequiredMixin, ThingyActionMixin, NavBarMixin, DetailView):
+#     model = Player
+#     page_title = _("Your Thingys Detail")
+
+#     def get_context_data(self, **kwargs):
+#         context = super(PlayerDetailView, self).get_context_data(**kwargs)
+#         this_Player = self.get_object()
+#         # relationship = user_relation(this_thingy.owner, self.request.user)
+#         # if relationship == "selfRelated":
+#             # context["selfRelated"] = True
+#         context["requested"], context["ask_object_lender"] = ask_borrow_object_for_owner(this_thingy, self.request.user)
+#             # add more owner-specific info
+#         # elif relationship == "clubRelated":
+#             # context["clubRelated"] = True
+#             # context["already_requested"], context["ask_objects"] = thingy_requested_by_user(this_thingy, self.request.user)
+#             # context["request_accepted"] = thingy_request_accepted_for_user(this_thingy, self.request.user)
+#             # context["available"] = thingy_available_for_request(this_thingy)
+#             # add more club buddy specific info
+#         # elif relationship == "pendingMemberMember":
+#             # context["pendingMemberMember"] = True
+#             # add more info for a pending member to view a current member thingy
+#         # elif relationship == "memberPendingMember":
+#             # context["memberPendingMember"] = True
+#             # maybe a member wants to check out what kind of thingys
+#             # a requesting member might have
+#         # else:
+#             # context["notRelated"] = True
+#             # this person is not related to thingy owner in any way.
+#             # give basic info
+#         return context
 
 
 # @staff_member_required

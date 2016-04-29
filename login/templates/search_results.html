@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+<div class="container">
+    <div class="row">
+        {% block content %}
+            <h4>Your Players List View</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        {# spacer where clubs used to be, since this template is only for anonymous users #}
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <!-- {%  include "thingys/thingy_list_partial.html" %} -->
+                            {%  include "Players/player_list_partial.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        {% endblock %}
+    </div>
+</div>

@@ -6,8 +6,19 @@ urlpatterns = [
 	url(
         regex=r"^(?P<pk>\d+)$",
         view=views.PlayerDetailView.as_view(),
-        name="detail")
-        ]
+        name="detail"
+        ),
+	url(
+		regex=r"^(?P<pk>\d+)$",
+        view=views.PlayerDetailView.as_view(),
+        name="mydetail"
+        ),
+    url(
+        regex=r"^(?P<pk>\d+)$",
+        view=views.PlayerDetailView.as_view(),
+        name="detail"
+        ),
+    ]
 
 # urlpatterns = [
 #     url(

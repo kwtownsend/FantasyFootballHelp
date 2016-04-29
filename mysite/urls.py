@@ -30,7 +30,8 @@ urlpatterns = patterns('',
                        url(r'^register/success/$', register_success),
                        url(r'^home/$', home),
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^players/', include('Players.urls', namespace='Players')),
+                       url(r'^player/', include('Players.urls', namespace="Players")),
+                       url(r'^search/$', search),
 
 
                        )
