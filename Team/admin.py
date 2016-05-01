@@ -1,13 +1,15 @@
 # from django.contrib import admin
-# from Team.models import Team
+# from clubs.models import Club, MemberRequest
 
 
 
-# class TeamAdmin(admin.ModelAdmin):
-#     # club = Club.objects.get(policies=)
-#     list_display = ('leader', 'public', 'visible', 'max_members', 'lending_days', 'pk')
-#     list_filter = ['public', 'visible', 'max_members', 'lending_days']
-#     # date_hierarchy = 'add_date'
-#     # fields = (('shortDescription', 'owner'), 'lendable')
+# class ClubAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'add_date', 'pk')
 
-# admin.site.register(Team, TeamAdmin)
+# admin.site.register(Club, ClubAdmin)
+
+
+# class MemberRequestAdmin(admin.ModelAdmin):
+#     list_display = ('reasonMessage', 'requester', 'clubToJoin', 'request_date')
+
+# admin.site.register(MemberRequest, MemberRequestAdmin)

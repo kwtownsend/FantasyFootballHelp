@@ -217,7 +217,7 @@ def search(request):
         return HttpResponseRedirect('/')
     searchString = request.GET.get('q')
     foundPlayers = Player.objects.filter(name__contains=searchString)
-    foundPos = Player.objects.filter(pos__contains=searchString)
+    # foundPos = Player.objects.filter(pos__contains=searchString)
     # TODO: The way to make this DRY is to make this a class-based view
     # See attempt above, that didn't work
     context = RequestContext(request)

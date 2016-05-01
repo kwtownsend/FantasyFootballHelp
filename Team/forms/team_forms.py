@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
 from Team.models import Team
-from Team.models import PlayerRequest
+from Queue.models import Queue
 
 from django.http import Http404
 import datetime
@@ -13,17 +13,16 @@ class NewTeamForm(ModelForm):
     # zipcode = models.CharField(max_length=5)
     # add_date = models.DateField(default=timezone.now)
     # members = models.ManyToManyField(User)
-    players = models.ManyToManyField(Player)
     # policies = models.ForeignKey('clubPolicies.ClubPolicy')
     class Meta:
         model = Team
-        fields = ["owner", "max_players", "players"]
+        fields = ["name"]
 
     # _leader = None
-    # _first_member = None
+    _first_member = None
 
-    def set_owner(self, current_logged_in_member):
-        self._owner = current_logged_in_member
+    # def set_leader(self, current_logged_in_member):
+    #     self._leader = current_logged_in_member
 
     def set_policy(self, policy):
         self._policy = policy
@@ -50,7 +49,7 @@ class NewTeamForm(ModelForm):
         # else:
         #     return Http404("No policies set")
 
-        self.instance.add_date = datetime.datetime.now()
+        # self.instance.add_date = datetime.datetime.now()
 
         resp = super(NewTeamForm, self).save(*args, **kwargs)
         return resp

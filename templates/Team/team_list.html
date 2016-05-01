@@ -3,9 +3,9 @@
     {% for club in object_list %}
         <div class="col-sm-4 col-lg-4 col-md-4">
             <div class="thumbnail">
-                <h4><a href="{% url 'clubs:detail' club.pk %}">{{ club.name }}</a></h4>
-                <h5>in the {{ club.zipcode }} zip code</h5>
-                <h5>{{ club.description }}</h5>
+                <!-- <h4><a href="{% url 'clubs:detail' club.pk %}">{{ club.name }}</a></h4> -->
+                <!-- <h5>in the {{ Team.zipcode }} zip code</h5> -->
+                <!-- <h5>{{ club.description }}</h5> -->
             </div>
         </div>
         <!-- <li><a href="{% url 'clubs:detail' club.pk %}">{{ club.description }}</a></li> -->
@@ -13,6 +13,6 @@
 {% endblock %}
 {% block sidebar %}
 {#    TODO: make this look better, think up more content to put here. #}
-    Put list of your clubs<br/>
-<a href="{% url 'clubs:new' %}">Create Your Own Club</a>
+    <!-- Put list of your clubs<br/> -->
+<a href="{% url 'clubs:new' %}">Create Your Own Team</a>
 {% endblock %}

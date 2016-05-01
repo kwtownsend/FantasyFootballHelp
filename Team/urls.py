@@ -16,11 +16,6 @@ urlpatterns = [
         view=views.TeamListView.as_view(),
         name="list"
     ),
-    # url(
-    #     regex=r"^new$",
-    #     view=views.ClubAndPolicyCreateView.as_view(),
-    #     name="new"
-    # ),
     url(
         regex=r"^new$",
         view=views.TeamCreateView.as_view(),
@@ -31,25 +26,20 @@ urlpatterns = [
         view=views.TeamDetailView.as_view(),
         name="detail"
     ),
-    # url(
-    #     regex=r"^join/(?P<pk>\d+)$",
-    #     view=views.ClubAskJoinView.as_view(),
-    #     name="askjoin"
-    # ),
-    # url(
-    #     regex=r"^confirm/(?P<pk>\d+)$",
-    #     view=views.ClubConfirmAskJoinView.as_view(),
-    #     name="confirmAskJoin"
-    # ),
-   url(
-        regex=r"^addmember/(?P<pk>\d+)$",
-        view=views.TeamAddPlayerView.as_view(),
-        name="addmember"
+    url(
+        regex=r"^join/(?P<pk>\d+)$",
+        view=views.TeamAskJoinView.as_view(),
+        name="askjoin"
+    ),
+    url(
+        regex=r"^confirm/(?P<pk>\d+)$",
+        view=views.TeamConfirmAskJoinView.as_view(),
+        name="confirmAskJoin"
     ),
    # url(
-   #      regex=r"^declinemember/(?P<pk>\d+)$",
-   #      view=views.ClubDeclineMemberView.as_view(),
-   #      name="declinemember"
+   #      regex=r"^addplayer/(?P<pk>\d+)$",
+   #      view=views.TeamAddPlayerView.as_view(),
+   #      name="addmember"
    #  ),
    # url(
    #      regex=r"^editmember/(?P<pk>\d+)$",
@@ -61,14 +51,14 @@ urlpatterns = [
         view=views.TeamResultsView.as_view(),
         name="result"
     ),
-    url(
-        regex=r"^update/(?P<pk>\d+)$",
-        view=views.TeamUpdateView.as_view(),
-        name="update"
-    ),
-    url(
-        regex=r"^delete/(?P<pk>\d+)$",
-        view=views.TeamDeleteView.as_view(),
-        name="delete"
-    ),
+    # url(
+    #     regex=r"^update/(?P<pk>\d+)$",
+    #     view=views.ClubUpdateView.as_view(),
+    #     name="update"
+    # ),
+    # url(
+    #     regex=r"^delete/(?P<pk>\d+)$",
+    #     view=views.ClubDeleteView.as_view(),
+    #     name="delete"
+    # ),
 ]

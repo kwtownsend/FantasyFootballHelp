@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'webapp',
     'login',
     'Players',
+    'Queue',
+    'Team',
 )
 
 MIDDLEWARE_CLASSES = (
