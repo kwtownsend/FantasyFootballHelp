@@ -216,7 +216,8 @@ def search(request):
     if not request.GET.get('q'):
         return HttpResponseRedirect('/')
     searchString = request.GET.get('q')
-    foundObjects = Player.objects.filter(name__contains=searchString)
+    foundPlayers = Player.objects.filter(name__contains=searchString)
+    foundPos = Player.objects.filter(pos__contains=searchString)
     # TODO: The way to make this DRY is to make this a class-based view
     # See attempt above, that didn't work
     context = RequestContext(request)
@@ -244,6 +245,6 @@ def search(request):
     # anonymous user
     return render_to_response(
             'search_results.html',
-            { 'object_list': foundObjects},
+            { 'object_list': foundPlayers},
             context_instance=context,
     )

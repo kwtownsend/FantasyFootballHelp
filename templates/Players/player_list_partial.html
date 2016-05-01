@@ -1,21 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- <div class="col-md-3"></div> -->
+<div class="container col-md-4">
+<table width="100%" border="1" cellspacing="5" cellpadding="5">  
+  <tr>
+    <td <b>Name  &nbsp;</b> </td>
+    <td <b>Pos  &nbsp;</b></td>
+    <td <b>Fantasy Pts  &nbsp;</b></td>
+    <td <b>Fantasy PPG  &nbsp;</b> </td>
+    <td <b>Games Played  &nbsp;</b></td>
+    <td <b>Pass Yds  &nbsp;</b> </td>
+    <td <b>Pass TDs  &nbsp;</b> </td>
+    <td <b>Rush Yds  &nbsp;</b> </td>
+    <td <b>Rush TDs  &nbsp;</b> </td>
+    <td <b>Rec Yds  &nbsp;</b> </td>
+    <td <b>Rec TDs  &nbsp;</b> </td>
+    <td <b>Fum Lost  &nbsp;</b> </td>
+    <td <b>Sacks  &nbsp;</b> </td>
+    <td <b>Fum Rec  &nbsp;</b> </td>
+    <td <b>Ints  &nbsp;</b> </td>
+    <td <b>Def TDs  &nbsp;</b> </td>
+    <td <b>Safety  &nbsp;</b></td>
+    <td <b>FG  &nbsp;</b> </td>
+    <td <b>FG Miss  &nbsp;</b> </td>
+    <td <b>Ex Pts  &nbsp;</b> </td>
+  </tr>
 {%  for player in object_list %}
-<div class="col-lg-4 col-md-6 col-sm-12">
-  <div class="thumbnail">
-{#    <img src="http://lorempixel.com/320/150" alt="">#}
-    <div class="caption">
-      <!-- {% if viewing_member == thingy.owner %} -->
-      <h4><a href="{% url 'Players:mydetail' player.pk %}">{{ player.name }}</a></h4>
-<!-- {% else %} -->
-      <h4><a href="{% url 'Players:detail' player.pk %}">{{ player.pos }}</a>
-        <!-- {% endif %} -->
-    </h4>
-      <!-- {% if show_owner_info %} -->
-      <p class=player_owner_line>Owned by <span class=name>{{ player.owner }}</span></p>
-      <!-- {% endif %} -->
-{# truncatedLongDescription takes a numeric param, not sure how (if possible) to pass from template #}
-      <p>{{ player.truncatedLongDescription }}</p>
-    </div>
-  </div>
-</div>
-<li><a href="{% url 'Players:mydetail' player.pk %}">{{ player.shortDescription }}</a></li>
+  <tr>
+    <td> <a href="{% url 'Players:detail' player.pk %}" style="white-space:nowrap;">{{ player.name }} &nbsp; </a></td>
+    <td>{{ player.pos }}</td>
+    <td>{{ player.fpts }}</td>
+    <td>{{ player.fptsg }}</td>
+    <td>{{ player.gp }}</td>
+    <td>{{ player.pyds }}</td>
+    <td>{{ player.ptd }}</td>
+    <td>{{ player.ryd }}</td>
+    <td>{{ player.rtd }}</td>
+    <td>{{ player.recyds }}</td>
+    <td>{{ player.rectd }}</td>
+    <td>{{ player.fum }}</td>
+    <td>{{ player.sack }}</td>
+    <td>{{ player.fr }}</td>
+    <td>{{ player.intercept }}</td>
+    <td>{{ player.td }}</td>
+    <td>{{ player.sfty }}</td>
+    <td>{{ player.fg }}</td>
+    <td>{{ player.fgmiss }}</td>
+    <td>{{ player.xpt }}</td>
+  </tr>
 {% endfor %}
+</table> 
+</div>
+</div>
+
+{% endblock %}

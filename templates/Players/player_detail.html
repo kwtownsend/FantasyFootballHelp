@@ -1,45 +1,42 @@
 {% extends "base.html" %}
-
-<div class="container">
-    <div class="row">
         <!-- {% block title %}Welcome Back{% endblock %} -->
         <!-- {% block head %}Welcome, {{ user.first_name|upper }}{% endblock %} -->
         {% block content %}
-            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
             <div class="container col-md-4">
             <h3>Player Detail View</h3>
             <h5 style="color:darkorange"><b>Database Item: </b>{{ player.pk }}</h5>
             {# TODO: Delete Database Item key from template #}
-             <table style="width:100%">
+<table width="100%" border="1" cellspacing="5" cellpadding="5">  
   <tr>
-    <td style="white-space:nowrap;"><b>Name  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Pos  &nbsp;</b></td>
-    <td style="white-space:nowrap;"><b>Fantasy Pts  &nbsp;</b></td>
-    <td style="white-space:nowrap;"><b>Fantasy PPG  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Games Played  &nbsp;</b></td>
-    <td style="white-space:nowrap;"><b>Pass Yds  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Pass TDs  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Rush Yds  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Rush TDs  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Rec Yds  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Rec TDs  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Fum Lost  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Sacks  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Fum Recovered  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Ints  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Def TDs  &nbsp;</b> </td&nbsp;>
-    <td style="white-space:nowrap;"><b>Safety  &nbsp;</b></td>
-    <td style="white-space:nowrap;"><b>FG  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>FG Miss  &nbsp;</b> </td>
-    <td style="white-space:nowrap;"><b>Ex Pts  &nbsp;</b> </td>
+    <td <b>Name  &nbsp;</b> </td>
+    <td <b>Pos  &nbsp;</b></td>
+    <td <b>Fantasy Pts  &nbsp;</b></td>
+    <td <b>Fantasy PPG  &nbsp;</b> </td>
+    <td <b>Games Played  &nbsp;</b></td>
+    <td <b>Pass Yds  &nbsp;</b> </td>
+    <td <b>Pass TDs  &nbsp;</b> </td>
+    <td <b>Rush Yds  &nbsp;</b> </td>
+    <td <b>Rush TDs  &nbsp;</b> </td>
+    <td <b>Rec Yds  &nbsp;</b> </td>
+    <td <b>Rec TDs  &nbsp;</b> </td>
+    <td <b>Fum Lost  &nbsp;</b> </td>
+    <td <b>Sacks  &nbsp;</b> </td>
+    <td <b>Fum Rec  &nbsp;</b> </td>
+    <td <b>Ints  &nbsp;</b> </td>
+    <td <b>Def TDs  &nbsp;</b> </td>
+    <td <b>Safety  &nbsp;</b></td>
+    <td <b>FG  &nbsp;</b> </td>
+    <td <b>FG Miss  &nbsp;</b> </td>
+    <td <b>Ex Pts  &nbsp;</b> </td>
   </tr>
   <tr>
     <td style="white-space:nowrap;">{{ player.name }} &nbsp;</td>
     <td>{{ player.pos }}</td>
-    <td>{{ player.fptsrecyds }}</td>
+    <td>{{ player.fpts }}</td>
     <td>{{ player.fptsg }}</td>
     <td>{{ player.gp }}</td>
-    <td>{{ Player.pyds }}</td>
+    <td>{{ player.pyds }}</td>
     <td>{{ player.ptd }}</td>
     <td>{{ player.ryd }}</td>
     <td>{{ player.rtd }}</td>
@@ -58,11 +55,11 @@
 </table> 
 <br>
 </br>
-<div class="col-md-4"></div>
+<div class="col-md-5"></div>
 
 <!-- <div class="col-md-4"></div> -->
 <!-- <div class="col-md-4"> -->
-<center><a href="{<!-- % url 'asks:requestingNew' Players.pk % -->}" class="btn btn-lg btn-primary btn-block">Add to Queue</a></center>
+<center><a href="{<!-- % url 'Teams:askjoin' Players.pk % -->}" class="btn btn-lg btn-primary btn-block">Add to Queue</a></center>
 </div>
 <!-- <div class="col-md-4"></div> -->
 {% endblock %}

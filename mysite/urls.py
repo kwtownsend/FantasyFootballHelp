@@ -32,7 +32,6 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^player/', include('Players.urls', namespace="Players")),
                        url(r'^search/$', search),
-
-
+                       # url(r'^team/', include('Team.urls', namespace="Team")),
                        )
                        
