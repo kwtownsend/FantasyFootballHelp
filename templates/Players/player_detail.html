@@ -59,7 +59,7 @@
 
 <!-- <div class="col-md-4"></div> -->
 <!-- <div class="col-md-4"> -->
-<center><a href="{<!-- % url 'Teams:askjoin' Players.pk % -->}" class="btn btn-lg btn-primary btn-block">Add to Queue</a></center>
+<center><a href="{% url 'Team:askjoin' player.pk %}" class="btn btn-lg btn-primary btn-block">Add to Queue</a></center>
 </div>
 <!-- <div class="col-md-4"></div> -->
 {% endblock %}

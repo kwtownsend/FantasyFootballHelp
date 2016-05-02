@@ -22,6 +22,7 @@ from django.contrib import messages
 from Team.forms.team_forms import NewTeamForm
 from Team.forms.queue_forms import NewTeamPolicyForm
 from Team.forms.player_form import newPlayerForm
+from Team.forms.playerrequestform import newPlayerRequest
 
 
 # from Team.forms.member_form import newMemberForm
@@ -68,10 +69,10 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         # context["bottom_panel_name"] = "Request Membership"
         # context["member_count"] = len(player_list)
         # if Team.is_owner(this_team, self.request.user):
-            # member specific context data goes here
-            # context["bottom_panel_name"] = "Membership Requests"
-            # context["member"] = True
-            # context["members_list"] = player_list
+        #     # member specific context data goes here
+        #     context["bottom_panel_name"] = "Membership Requests"
+        #     context["member"] = True
+        #     context["members_list"] = player_list
 
         #     context["member_requests"] = this_team.player_requests_list()
         #     if Team.is_owner(this_team, self.request.user):
@@ -215,9 +216,9 @@ class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Create
     This request should be sent to the club leader.
     """
     # template_name = "clubs/requestJoin.html"
-    fields = None
+    # fields = ["teamToJoin"]
     model = PlayerRequest
-    form_class = newPlayerForm
+    form_class = newPlayerRequest
     success_msg = _("Request sent to Club Leader")
     page_title = _("Club Ask to Join")
 
@@ -226,8 +227,16 @@ class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Create
     def get_form(self, **kwargs):
         form = super(TeamAskJoinView, self).get_form(**kwargs)
         form.set_requester(self.request.user)
+        # the_team = Team.objects.get(pk=1)
+        # form.set_teamToJoin()
+        print(self.kwargs['pk'])
+        print(('checking'))
+        # if 'pk' in kwargs:
+        #     print('plswork')
+        #     print(kwargs.get('pk'))
+        form.set_player(self.kwargs['pk'])
         # how can I get the pk of the current club from the url, or from somewhere?
-        form.set_clubToJoin(self.kwargs['pk'])
+        # form.set_teamToJoin(self.kwargs['pk'])
         return form
 
     def get_success_url(self):
