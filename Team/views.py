@@ -67,19 +67,19 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         # context["top_panel_name"] = "Members"
         # context["bottom_panel_name"] = "Request Membership"
         # context["member_count"] = len(player_list)
-        if Team.is_owner(this_team, self.request.user):
+        # if Team.is_owner(this_team, self.request.user):
             # member specific context data goes here
-            context["bottom_panel_name"] = "Membership Requests"
-            context["member"] = True
-            context["members_list"] = player_list
+            # context["bottom_panel_name"] = "Membership Requests"
+            # context["member"] = True
+            # context["members_list"] = player_list
 
-            context["member_requests"] = this_team.player_requests_list()
-            if Team.is_owner(this_team, self.request.user):
-                context["owner"] = True
+        #     context["member_requests"] = this_team.player_requests_list()
+        #     if Team.is_owner(this_team, self.request.user):
+        #         context["owner"] = True
 
-        if Team.is_owner(this_team, self.request.user):
-            # leader specific context data goes here
-            pass
+        # if Team.is_owner(this_team, self.request.user):
+        #     # leader specific context data goes here
+        #     pass
         return context
 
 
@@ -157,7 +157,7 @@ class TeamDeleteView(LoginRequiredMixin, TeamActionMixin, DeleteView):
     def get_object(self, queryset=None):
         """Hook to ensure club leader guy is request.user"""
         obj = super(TeamDeleteView, self).get_object()
-        leaderGuy = obj.policies.owner
+        # leaderGuy = obj.policies.owner
         if not leaderGuy == self.request.user:
             raise Http404(_("You're not the owner of this team, so fuck off."))
         return obj

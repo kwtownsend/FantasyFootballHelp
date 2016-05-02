@@ -33,11 +33,11 @@ class Team(models.Model):
         from django.core.urlresolvers import reverse
         return reverse('Team:detail', args=[str(self.id)])
 
-    # def is_owner(self, member):
-    #     leader = self.policies.leader
-    #     if owned == owner:
-    #         return True
-    #     return False
+    def is_owner(self, user):
+        if user == self.owner:
+            return True
+        return False
+
 
     # def is_owner(self, member):
     #     owned = User.objects.filter(team=self)
@@ -62,7 +62,7 @@ class Team(models.Model):
 
 
 class PlayerRequest(models.Model):
-    player = models.ForeignKey(Player)
+    player = models.ForeignKey(Player, default=1)
     requester = models.ForeignKey(User)
     teamToJoin = models.ForeignKey(Team)
     # request_date = models.DateField(default=timezone.now)

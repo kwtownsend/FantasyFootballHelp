@@ -1,0 +1,42 @@
+{% extends "base_two_right_panes.html" %}
+{% block content %}
+    {#    <script src="{% static "js/google_map.js" %}"></script>#}
+
+    <!-- <h1><b>Club Database ID: </b>{{ club.pk }}</h1> -->
+    <h5><b>Club Name: </b>{{ club.name }}</h5>
+    <h5><b>Club Description: </b></h5>
+    <h5><b>Club Leader: </b> </h5>
+    {% if club.policies.public %}
+        <h5>Club is <b>Public.</b></h5>
+    {% else %}
+        <h5>Club is <b>Private.</b></h5>
+
+    {% endif %}
+    <div id='map'></div>
+    <br />
+{% endblock %}
+{
+{% with top_panel_name="Member List" %}
+    {% block top_panel %}
+        {% if member %}
+            List of club's members
+            <ul>
+                {% for one_member in members_list %}
+                    <li><a href="{% url 'members:detail' pk=one_member.pk %}">{{ one_member.username }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5>{{ member_count }} member{{ member_count|pluralize }} in this club</h5>
+        {% endif %}
+    {% endblock %}
+{% endwith %}
+
+{% with bottom_panel_name="Member Requests" %}
+    {% block bottom_panel %}
+        {% if member and member_requests %}
+            {% include "clubs/pending_member_list_partial.html" %}
+        {% else %}
+            <h5>Non members can't see member requests</h5>
+        {% endif %}
+    {% endblock %}
+{% endwith %}
