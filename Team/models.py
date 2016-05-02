@@ -23,7 +23,7 @@ class Team(models.Model):
     #     # return leader
     #     return "leader guy"
 
-    def add_player(self, new_member):
+    def add_player(self, new_player):
         self.players.add(Player.objects.get(pk=new_player.pk))
         
     # def get_club_rating(self, club_member):

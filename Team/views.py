@@ -24,7 +24,6 @@ from Team.forms.queue_forms import NewTeamPolicyForm
 from Team.forms.player_form import newPlayerForm
 from Team.forms.playerrequestform import newPlayerRequest
 
-
 # from Team.forms.member_form import newMemberForm
 from helpers.navbar_helpers import NavBarMixin
 from django.contrib import messages
@@ -64,15 +63,77 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         # context["page_title"] = _("Club Detail")
         # context["available_thingys"] = self.thingys_available()
         this_team = self.get_object(queryset=None)
+        # player = self.get_object(queryset=None)
         player_list = this_team.players.all()
+        player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
+        fpts = 0
+        fptsg = 0
+        gp = 0
+        pyds = 0
+        ptd = 0
+        ryd = 0
+        rtd = 0
+        recyds = 0
+        rectd = 0
+        fum = 0
+        sack = 0
+        fr = 0
+        intercept = 0
+        td = 0
+        sfty =0
+        fg = 0
+        fgmiss = 0
+        xpt = 0
+        context["player_request_count"] = len(player_requests)
+        context["player_actual_count"] = len(player_list)
+        context["player_list"] = player_list
+        context["player_request_list"] = player_requests
+        for p in player_requests:
+            fpts += p.player.fpts
+            fptsg += p.player.fptsg
+            gp += p.player.gp
+            pyds += p.player.pyds
+            ptd += p.player.ptd
+            ryd += p.player.ryd
+            rtd += p.player.rtd
+            recyds += p.player.recyds
+            rectd += p.player.rectd
+            fum += p.player.fum
+            sack += p.player.sack
+            fr += p.player.fr
+            intercept += p.player.intercept
+            td += p.player.td
+            sfty += p.player.sfty
+            fg += p.player.fg
+            fgmiss += p.player.fgmiss
+            xpt += xpt
+        context["fpts"] = fpts
+        context["fptsg"] = fptsg
+        context["gp"] = gp
+        context["pyds"] = pyds
+        context["ptd"] = ptd
+        context["ryd"] = ryd
+        context["rtd"] = rtd
+        context["recyds"] = recyds
+        context["rectd"] = rectd
+        context["fum"] = fum
+        context["sack"] = sack
+        context["fr"] = fr
+        context["intercept"] = intercept
+        context["td"] = td
+        context["sfty"] = sfty
+        context["fg"] = fg
+        context["fgmiss"] = fgmiss
+        context["xpt"] = xpt
+        # all_entries = Team.players.all()
         # context["top_panel_name"] = "Members"
         # context["bottom_panel_name"] = "Request Membership"
         # context["member_count"] = len(player_list)
         # if Team.is_owner(this_team, self.request.user):
         #     # member specific context data goes here
         #     context["bottom_panel_name"] = "Membership Requests"
-        #     context["member"] = True
-        #     context["members_list"] = player_list
+        # context["player"] = True
+
 
         #     context["member_requests"] = this_team.player_requests_list()
         #     if Team.is_owner(this_team, self.request.user):
@@ -207,6 +268,72 @@ class PlayerActionMixin(object):
 #             clubToJoin = member_request_object.clubToJoin
 #             clubToJoin.add_member(askingMember)
 #             member_request_object.delete()
+
+class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, DetailView):
+    """
+    Page where authorized user (leader?) can add members.
+    This may be unnedded, or something like "ClubInviteMembersView".
+    Maybe this is the results page for a member add to a club?
+    """
+    model = PlayerRequest
+    page_title = _("Club Add Member")
+    success_msg= _("Member added to club")
+
+
+    # TODO: Anyone can approve the member join. They just need to know the url pattern.
+
+    def get(self, request, pk=None, *args, **kwargs):
+        if pk:
+            player_request_object = PlayerRequest.objects.get(pk=Player.pk)
+            # askingPlayer = player_request_object.requester
+            teamToJoin = member_request_object.teamToJoin
+            teamToJoin.add_player(player_request_object)
+            member_request_object.delete()
+            return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": teamToJoin.pk}))
+
+# class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, DetailView):
+#     """
+#     Page where authorized user (leader?) can add members.
+#     This may be unnedded, or something like "ClubInviteMembersView".
+#     Maybe this is the results page for a member add to a club?
+#     """
+#     model = PlayerRequest
+#     page_title = _("Club Add Member")
+#     success_msg= _("Member added to club")
+
+
+
+#     def get(self, request, pk=None, *args, **kwargs):
+#         # if pk:
+#             player_request = PlayerRequest.objects.get(pk=pk)
+#             teamToJoin = player_request.teamToJoin
+#             askingUser = self.request.user
+            
+#             player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
+
+#             teamToJoin.add_player(player_request.player)
+
+#             player_request_object.delete()
+#             return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": teamToJoin.pk}))
+            # else:
+            #     return HttpResponseRedirect(redirect_to=reverse('welcome'))
+
+class TeamRemovePlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, DetailView):
+    model = PlayerRequest
+    page_title = _("Club Add Member")
+    success_msg= _("Member added to club")
+    def get(self, request, pk=None, *args, **kwargs):
+        if pk:
+            player_request_object = PlayerRequest.objects.get(pk=3)
+            # teamToJoin = player_request_object.teamToJoin
+            askingUser = self.request.user
+            player_request_object.remove(pk=pk)
+            # player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
+
+            # teamToJoin.add_player(player_request_object.player)
+
+            player_request_object.delete()
+            return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": teamToJoin.pk}))
 
 
 class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, CreateView):

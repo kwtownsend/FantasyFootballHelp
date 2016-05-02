@@ -1,32 +1,143 @@
-{% extends "base_two_right_panes.html" %}
+{% extends "base.html" %}
 {% block content %}
+<!-- <div class="col-md-2"></div> -->
+<div class="container col-md-4">
 
     <h5><b>Club Name: </b>{{ team.name }}</h5>
-    <h5><b>Club Description: </b></h5>
-    <h5><b>Club Leader: </b> </h5>
-    <div id='map'></div>
-    <br />
-{% endblock %}
-{
-{% with top_panel_name="Member List" %}
-    {% block top_panel %}
-        {% if player_list %}
-            List of club's members
-            <ul>
-               {% for player in player_list %}
-               <li> {{ player.name }}
-               {% endfor %}
-            </ul>
-        {% else %}
-        there are no players for this
-        {% endif %}
-    {% endblock %}
-{% endwith %}
+    <h5><b>Club Leader: </b> {{ team.owner }}</h5>
+    {{ object.player.name }}
 
-{% with bottom_panel_name="Member Requests" %}
-    {% block bottom_panel %}
-        {% if member and member_requests %}
-        {% else %}
-        {% endif %}
-    {% endblock %}
-{% endwith %}
+                List of Team's members
+               <h5>{{ player_actual_count }} player{{ player_actual_count|pluralize }} in this team</h5>
+<table width="100%" border="1" cellspacing="5" cellpadding="5">  
+  <tr>
+    <td <b>Name  &nbsp;</b> </td>
+    <td <b>Pos  &nbsp;</b></td>
+    <td <b>Fantasy Pts  &nbsp;</b></td>
+    <td <b>Fantasy PPG  &nbsp;</b> </td>
+    <td <b>Games Played  &nbsp;</b></td>
+    <td <b>Pass Yds  &nbsp;</b> </td>
+    <td <b>Pass TDs  &nbsp;</b> </td>
+    <td <b>Rush Yds  &nbsp;</b> </td>
+    <td <b>Rush TDs  &nbsp;</b> </td>
+    <td <b>Rec Yds  &nbsp;</b> </td>
+    <td <b>Rec TDs  &nbsp;</b> </td>
+    <td <b>Fum Lost  &nbsp;</b> </td>
+    <td <b>Sacks  &nbsp;</b> </td>
+    <td <b>Fum Rec  &nbsp;</b> </td>
+    <td <b>Ints  &nbsp;</b> </td>
+    <td <b>Def TDs  &nbsp;</b> </td>
+    <td <b>Safety  &nbsp;</b></td>
+    <td <b>FG  &nbsp;</b> </td>
+    <td <b>FG Miss  &nbsp;</b> </td>
+    <td <b>Ex Pts  &nbsp;</b> </td>
+  </tr>
+{% for p in player_list %}
+<tr>
+    <td style="white-space:nowrap;">{{ p.name }} &nbsp;</td>
+    <td>{{ p.pos }}</td>
+    <td>{{ p.fpts }}</td>
+    <td>{{ p.fptsg }}</td>
+    <td>{{ p.gp }}</td>
+    <td>{{ p.pyds }}</td>
+    <td>{{ p.ptd }}</td>
+    <td>{{ p.ryd }}</td>
+    <td>{{ p.rtd }}</td>
+    <td>{{ p.recyds }}</td>
+    <td>{{ p.rectd }}</td>
+    <td>{{ p.fum }}</td>
+    <td>{{ p.sack }}</td>
+    <td>{{ p.fr }}</td>
+    <td>{{ p.intercept }}</td>
+    <td>{{ p.td }}</td>
+    <td>{{ p.sfty }}</td>
+    <td>{{ p.fg }}</td>
+    <td>{{ p.fgmiss }}</td>
+    <td>{{ p.xpt }}</td>
+    <td><center><a href="{% url 'Team:removeplayer' pk=1 %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
+  </tr>
+{% endfor %}
+</table> 
+
+<h5>{{ player_request_count }} player in queue for this team</h5>
+<table width="100%" border="1" cellspacing="5" cellpadding="5">  
+  <tr>
+    <td <b>Name  &nbsp;</b> </td>
+    <td <b>Pos  &nbsp;</b></td>
+    <td <b>Fantasy Pts  &nbsp;</b></td>
+    <td <b>Fantasy PPG  &nbsp;</b> </td>
+    <td <b>Games Played  &nbsp;</b></td>
+    <td <b>Pass Yds  &nbsp;</b> </td>
+    <td <b>Pass TDs  &nbsp;</b> </td>
+    <td <b>Rush Yds  &nbsp;</b> </td>
+    <td <b>Rush TDs  &nbsp;</b> </td>
+    <td <b>Rec Yds  &nbsp;</b> </td>
+    <td <b>Rec TDs  &nbsp;</b> </td>
+    <td <b>Fum Lost  &nbsp;</b> </td>
+    <td <b>Sacks  &nbsp;</b> </td>
+    <td <b>Fum Rec  &nbsp;</b> </td>
+    <td <b>Ints  &nbsp;</b> </td>
+    <td <b>Def TDs  &nbsp;</b> </td>
+    <td <b>Safety  &nbsp;</b></td>
+    <td <b>FG  &nbsp;</b> </td>
+    <td <b>FG Miss  &nbsp;</b> </td>
+    <td <b>Ex Pts  &nbsp;</b> </td>
+  </tr>
+{% for p in player_request_list %}
+  <tr>
+    <td style="white-space:nowrap;">{{ p.player.name }} &nbsp;</td>
+    <td>{{ p.player.pos }}</td>
+    <td>{{ p.player.fpts }}</td>
+    <td>{{ p.player.fptsg }}</td>
+    <td>{{ p.player.gp }}</td>
+    <td>{{ p.player.pyds }}</td>
+    <td>{{ p.player.ptd }}</td>
+    <td>{{ p.player.ryd }}</td>
+    <td>{{ p.player.rtd }}</td>
+    <td>{{ p.player.recyds }}</td>
+    <td>{{ p.player.rectd }}</td>
+    <td>{{ p.player.fum }}</td>
+    <td>{{ p.player.sack }}</td>
+    <td>{{ p.player.fr }}</td>
+    <td>{{ p.player.intercept }}</td>
+    <td>{{ p.player.td }}</td>
+    <td>{{ p.player.sfty }}</td>
+    <td>{{ p.player.fg }}</td>
+    <td>{{ p.player.fgmiss }}</td>
+    <td>{{ p.player.xpt }}</td>
+    <td><center><a href="{% url 'Team:addplayer' pk=p.player.pk %}" class="btn btn-primary btn-block">Add to Team</a></center><td>
+    <td><center><a href="{% url 'Team:removeplayer' pk=p.player.pk %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
+  </tr>
+
+{%  endfor %}
+    <td>Total</td>
+    <td></td>
+    <td>{{ fpts }}</td>
+    <td>{{ fptsg }}</td>
+    <td>{{ gp }}</td>
+    <td>{{ pyds }} </td>
+    <td>{{ ptd }}</td>
+    <td>{{ ryd }}</td>
+    <td>{{ rtd }}</td>
+    <td>{{ recyds }}</td>
+    <td>{{ rectd }}</td>
+    <td>{{ fum }}</td>
+    <td>{{ sack }}</td>
+    <td>{{ fr }}</td>
+    <td>{{ intercept }}</td>
+    <td>{{ td }}</td>
+    <td>{{ sfty }}</td>
+    <td>{{ fg }}</td>
+    <td>{{ fgmiss }}</td>
+    <td>{{ xpt }}</td>
+
+</table> 
+    <br />
+</div>
+<div class="container col-md-4"></div>
+
+
+
+{% endblock %}
+
+    

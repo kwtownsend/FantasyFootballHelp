@@ -8,7 +8,6 @@ class PlayersAdmin(admin.ModelAdmin):
     	'fr', 'intercept', 'td', 'sfty', 'fg', 'fgmiss', 'xpt', 'pk')
     # list_filter = ['lendable', 'owner', 'thingy_type']
     # date_hierarchy = 'add_date'
-    # fields = (('shortDescription', 'owner'), 'lendable')
 
 
 admin.site.register(Player, PlayersAdmin)

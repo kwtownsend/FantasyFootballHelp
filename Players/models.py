@@ -33,8 +33,8 @@ class Player(models.Model):
     fgmiss = models.FloatField()
     xpt = models.FloatField()
 
-    def __unicode__(self):
-        return self.shortDescription
+    # def __unicode__(self):
+    #     return self.shortDescription
 
 
 

@@ -1,15 +1,15 @@
-# from django.contrib import admin
-# from clubs.models import Club, MemberRequest
+from django.contrib import admin
+from Team.models import Team, PlayerRequest
 
 
 
-# class ClubAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'add_date', 'pk')
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('name', 'owner', 'pk')
 
-# admin.site.register(Club, ClubAdmin)
+admin.site.register(Team, TeamAdmin)
 
 
-# class MemberRequestAdmin(admin.ModelAdmin):
-#     list_display = ('reasonMessage', 'requester', 'clubToJoin', 'request_date')
+class PlayerRequestAdmin(admin.ModelAdmin):
+    list_display = ('player', 'pk')
 
-# admin.site.register(MemberRequest, MemberRequestAdmin)
+admin.site.register(PlayerRequest, PlayerRequestAdmin)
