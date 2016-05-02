@@ -11,8 +11,8 @@ class Team(models.Model):
     # zipcode = models.CharField(max_length=5)
     # add_date = models.DateField(default=timezone.now)
     owner = models.ForeignKey(User)
-    players = models.ManyToManyField(Player)
-    policies = models.ForeignKey('Queue.Queue')
+    players = models.ManyToManyField('Players.Player')
+    # policies = models.ForeignKey('Queue.Queue')
     # will leave policy object for later
     
     def __unicode__(self):
@@ -24,7 +24,7 @@ class Team(models.Model):
         return "leader guy"
 
     def add_player(self, new_member):
-        self.players.add(User.objects.get(pk=new_player.pk))
+        self.players.add(Player.objects.get(pk=new_player.pk))
         
     # def get_club_rating(self, club_member):
     #     players = User.objects.filter(team=self)
@@ -34,7 +34,7 @@ class Team(models.Model):
         return reverse('Team:detail', args=[str(self.id)])
 
     def is_owner(self, member):
-        owned = self.policies.owner
+        leader = self.policies.leader
         if owned == owner:
             return True
         return False
@@ -62,6 +62,7 @@ class Team(models.Model):
 
 
 class PlayerRequest(models.Model):
+    player = models.ForeignKey('Players.Player')
     requester = models.ForeignKey(User)
     teamToJoin = models.ForeignKey(Team)
     # request_date = models.DateField(default=timezone.now)

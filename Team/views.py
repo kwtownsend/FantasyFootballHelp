@@ -119,7 +119,7 @@ class TeamCreateView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, CreateVie
         print("the passed-in 'self' object is a : " + repr(type(self)))
         print("the passed-in 'form' object is a : " + repr(type(form)))
         resp = super(TeamActionMixin, self).form_valid(form)
-        self.object.players.add(self.request.user)
+        # self.object.players.add(self.request.user)
         messages.info(self.request, self.success_msg)
         return resp
 

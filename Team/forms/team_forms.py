@@ -16,7 +16,7 @@ class NewTeamForm(ModelForm):
     # policies = models.ForeignKey('clubPolicies.ClubPolicy')
     class Meta:
         model = Team
-        fields = ["name"]
+        fields = ["name", "owner", "policies"]
 
     # _leader = None
     _first_member = None
