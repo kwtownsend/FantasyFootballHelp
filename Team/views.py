@@ -103,7 +103,7 @@ class TeamCreateView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, CreateVie
     def get_form(self, **kwargs):
         form = super(TeamCreateView, self).get_form(**kwargs)
         # form.set_leader(self.request.user)
-        form.set_policy(Queue.objects.create(public=True, leader=self.request.user))
+        # form.set_policy(Queue.objects.create(public=True, leader=self.request.user))
         # form.set_owner(self.request.user)
         # print("pk of policy object is " + str(NewTeamForm.get_policy))
         return form

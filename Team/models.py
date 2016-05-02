@@ -11,17 +11,17 @@ class Team(models.Model):
     # zipcode = models.CharField(max_length=5)
     # add_date = models.DateField(default=timezone.now)
     owner = models.ForeignKey(User)
-    players = models.ManyToManyField('Players.Player')
+    players = models.ManyToManyField(Player)
     # policies = models.ForeignKey('Queue.Queue')
     # will leave policy object for later
     
     def __unicode__(self):
         return self.name
         
-    def get_owner(self):
-        owner = self.policies.owner.username
-        # return leader
-        return "leader guy"
+    # def get_owner(self):
+    #     owner = self.policies.owner.username
+    #     # return leader
+    #     return "leader guy"
 
     def add_player(self, new_member):
         self.players.add(Player.objects.get(pk=new_player.pk))
@@ -33,11 +33,11 @@ class Team(models.Model):
         from django.core.urlresolvers import reverse
         return reverse('Team:detail', args=[str(self.id)])
 
-    def is_owner(self, member):
-        leader = self.policies.leader
-        if owned == owner:
-            return True
-        return False
+    # def is_owner(self, member):
+    #     leader = self.policies.leader
+    #     if owned == owner:
+    #         return True
+    #     return False
 
     # def is_owner(self, member):
     #     owned = User.objects.filter(team=self)
@@ -62,7 +62,7 @@ class Team(models.Model):
 
 
 class PlayerRequest(models.Model):
-    player = models.ForeignKey('Players.Player')
+    player = models.ForeignKey(Player)
     requester = models.ForeignKey(User)
     teamToJoin = models.ForeignKey(Team)
     # request_date = models.DateField(default=timezone.now)

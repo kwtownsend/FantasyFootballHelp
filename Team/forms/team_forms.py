@@ -16,7 +16,7 @@ class NewTeamForm(ModelForm):
     # policies = models.ForeignKey('clubPolicies.ClubPolicy')
     class Meta:
         model = Team
-        fields = ["name", "owner", "policies"]
+        fields = ["name", "owner"]
 
     # _leader = None
     _first_member = None
@@ -24,14 +24,14 @@ class NewTeamForm(ModelForm):
     # def set_leader(self, current_logged_in_member):
     #     self._leader = current_logged_in_member
 
-    def set_policy(self, policy):
-        self._policy = policy
+    # def set_policy(self, policy):
+    #     self._policy = policy
 
-    def get_policy(self):
-        if self._policy:
-            return self
-        else:
-            return 0
+    # def get_policy(self):
+    #     if self._policy:
+    #         return self
+    #     else:
+    #         return 0
 
     def set_owner(self, current_logged_in_member):
         self._first_member = current_logged_in_member
@@ -43,8 +43,8 @@ class NewTeamForm(ModelForm):
         #       and during the POST request. That's why there are two.
         #       The problem is, Club objects require a related ClubPolicy object.
         # if self._policy:
-        old_policy = self._policy
-        self.instance.policies = self._policy
+        # old_policy = self._policy
+        # self.instance.policies = self._policy
         # old_policy.delete()
         # else:
         #     return Http404("No policies set")
