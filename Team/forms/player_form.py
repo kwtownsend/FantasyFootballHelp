@@ -22,6 +22,7 @@ class newPlayerForm(ModelForm):
     _requester = None
     _owner = None
     _teamToJoin = None
+    _playerToJoin = None
 
     def set_requester(self, requester):
         self._requester = requester
@@ -33,6 +34,7 @@ class newPlayerForm(ModelForm):
         self._teamToJoin = teamToJoin
 
 
+
     def save(self, *args, **kwargs):
         # if self._policy:
         #     self.instance.policies = self._policy
@@ -41,6 +43,7 @@ class newPlayerForm(ModelForm):
 
         # self.instance.request_date = datetime.datetime.now()
         self.instance.requester = self._requester
+        # playerWanted = Player.objects.get(pk=)
         teamWanted = Team.objects.get(pk=self._teamToJoin)
         self.instance.teamToJoin = teamWanted
         # self.instance.clubToJoin = self._clubToJoin

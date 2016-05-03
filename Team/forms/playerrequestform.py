@@ -18,7 +18,7 @@ import datetime
 class newPlayerRequest(ModelForm):
     class Meta:
         model = PlayerRequest
-        fields = ["teamToJoin"]
+        fields = ["teamToJoin", "player"]
 
     _requester = None
     _owner = None
@@ -30,9 +30,6 @@ class newPlayerRequest(ModelForm):
 
     def set_owner(self, requester):
         self._owner = owner
-
-    def set_teamToJoin(self, teamToJoin):
-        self._teamToJoin = teamToJoin
 
     def set_player(self, player):
         self._player = player
@@ -47,6 +44,8 @@ class newPlayerRequest(ModelForm):
         # self.instance.request_date = datetime.datetime.now()
         self.instance.requester = self._requester
         self.instance.player = Player.objects.get(pk=self._player)
+        # teamWanted = Team.objects.get(pk=self._teamToJoin)
+        # self.instance.teamToJoin = teamWanted
         # teamWanted = Team.objects.get(pk=self._teamToJoin)
         # self.instance.teamToJoin = teamWanted
         # self.instance.clubToJoin = self._clubToJoin

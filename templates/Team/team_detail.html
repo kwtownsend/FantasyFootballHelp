@@ -105,7 +105,7 @@
     <td>{{ p.player.fg }}</td>
     <td>{{ p.player.fgmiss }}</td>
     <td>{{ p.player.xpt }}</td>
-    <td><center><a href="{% url 'Team:addplayer' pk=p.player.pk %}" class="btn btn-primary btn-block">Add to Team</a></center><td>
+    <td><center><a href="{% url 'Team:addplayer' p.player.pk %}" class="btn btn-primary btn-block">Add to Team</a></center><td>
     <td><center><a href="{% url 'Team:removeplayer' pk=p.player.pk %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
   </tr>
 

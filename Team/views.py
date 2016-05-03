@@ -2,6 +2,7 @@
 from Team.models import PlayerRequest
 from .models import Team, PlayerRequest
 from Queue.models import Queue
+from Players.models import Player
 from django.contrib.auth.models import User
 
 # for I18N
@@ -284,11 +285,12 @@ class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Deta
 
     def get(self, request, pk=None, *args, **kwargs):
         if pk:
-            player_request_object = PlayerRequest.objects.get(pk=Player.pk)
+            player = PlayerRequest.objects.filter(pk=PlayerRequest.player.pk)
+            player_request_object = player.objects.get(pk=pk)
             # askingPlayer = player_request_object.requester
-            teamToJoin = member_request_object.teamToJoin
+            teamToJoin = player_request_object.teamToJoin
             teamToJoin.add_player(player_request_object)
-            member_request_object.delete()
+            player_request_object.delete()
             return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": teamToJoin.pk}))
 
 # class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, DetailView):
@@ -324,7 +326,7 @@ class TeamRemovePlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, D
     success_msg= _("Member added to club")
     def get(self, request, pk=None, *args, **kwargs):
         if pk:
-            player_request_object = PlayerRequest.objects.get(pk=3)
+            player_request_object = PlayerRequest.objects.get(pk=pk)
             # teamToJoin = player_request_object.teamToJoin
             askingUser = self.request.user
             player_request_object.remove(pk=pk)
