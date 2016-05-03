@@ -129,24 +129,25 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
             xpt += p.xpt
 
         for p in player_requests:
-            dfpts += p.player.fpts
-            dfptsg += p.player.fptsg
-            dgp += p.player.gp
-            dpyds += p.player.pyds
-            dptd += p.player.ptd
-            dryd += p.player.ryd
-            drtd += p.player.rtd
-            drecyds += p.player.recyds
-            drectd += p.player.rectd
-            dfum += p.player.fum
-            dsack += p.player.sack
-            dfr += p.player.fr
-            dintercept += p.player.intercept
-            dtd += p.player.td
-            dsfty += p.player.sfty
-            dfg += p.player.fg
-            dfgmiss += p.player.fgmiss
-            dxpt += p.player.xpt
+            for s in player_requests:
+                dfpts = p.player.fpts - s.player.fpts
+                dfptsg = p.player.fptsg - s.player.fptsg
+                dgp = p.player.gp - s.player.gp
+                dpyds = p.player.pyds - s.player.pyds
+                dptd = p.player.ptd - s.player.ptd
+                dryd = p.player.ryd - s.player.ryd
+                drtd = p.player.rtd - s.player.rtd
+                drecyds = p.player.recyds - s.player.recyds
+                drectd = p.player.rectd - s.player.rectd
+                dfum = p.player.fum - s.player.fum
+                dsack = p.player.sack - s.player.sack
+                dfr = p.player.fr - s.player.fr
+                dintercept = p.player.intercept - s.player.intercept
+                dtd = p.player.td - s.player.td
+                dsfty = p.player.sfty - s.player.sfty
+                dfg = p.player.fg - s.player.fg
+                dfgmiss = p.player.fgmiss - s.player.fgmiss
+                dxpt = p.player.xpt - s.player.xpt
         context["fpts"] = fpts
         context["fptsg"] = fptsg
         context["gp"] = gp
