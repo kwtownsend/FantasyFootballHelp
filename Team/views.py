@@ -321,22 +321,12 @@ class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Deta
             # else:
             #     return HttpResponseRedirect(redirect_to=reverse('welcome'))
 
-class TeamRemovePlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, DetailView):
-    model = PlayerRequest
-    page_title = _("Club Add Member")
-    success_msg= _("Member added to club")
-    def get(self, request, pk=None, *args, **kwargs):
-        if pk:
-            player_request_object = PlayerRequest.objects.get(pk=pk)
-            # teamToJoin = player_request_object.teamToJoin
-            askingUser = self.request.user
-            delete(player_request_object)
-            # player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
-
-            # teamToJoin.add_player(player_request_object.player)
-
-            player_request_object.delete()
-            return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": teamToJoin.pk}))
+@login_required
+def deletePlayerRequest(request, pk):
+    req = PlayerRequest.objects.get(pk=pk)
+    team = req.teamToJoin.pk
+    req.delete()
+    return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": team}))
 
 
 class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, CreateView):
