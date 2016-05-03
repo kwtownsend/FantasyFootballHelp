@@ -54,8 +54,29 @@
     <td>{{ p.fg }}</td>
     <td>{{ p.fgmiss }}</td>
     <td>{{ p.xpt }}</td>
+    <td><center><a href="/team/deleteplayer/{{team.pk}}/{{p.pk}}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
   </tr>
 {% endfor %}
+    <td>Total</td>
+    <td></td>
+    <td>{{ fpts }}</td>
+    <td>{{ fptsg }}</td>
+    <td>{{ gp }}</td>
+    <td>{{ pyds }} </td>
+    <td>{{ ptd }}</td>
+    <td>{{ ryd }}</td>
+    <td>{{ rtd }}</td>
+    <td>{{ recyds }}</td>
+    <td>{{ rectd }}</td>
+    <td>{{ fum }}</td>
+    <td>{{ sack }}</td>
+    <td>{{ fr }}</td>
+    <td>{{ intercept }}</td>
+    <td>{{ td }}</td>
+    <td>{{ sfty }}</td>
+    <td>{{ fg }}</td>
+    <td>{{ fgmiss }}</td>
+    <td>{{ xpt }}</td>
 </table> 
 
 <h5>{{ player_request_count }} player in queue for this team</h5>

@@ -328,11 +328,11 @@ def DeletePlayerRequest(request, pk):
     req.delete()
     return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": team}))
 
-def DeleteTeamPlayer(request, teampk, playerpk):
-    team = Team.objects.get(pk=pk)
-    playertodelete = Team.players.pk
-    team.delete_player(playertodelete)
-    return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": team}))
+def DeleteTeamPlayer(request, team, player):
+    team = Team.objects.get(pk=team)
+    player = Player.objects.get(pk=player)
+    team.delete_player(player)
+    return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": team.pk}))
 
 
 
