@@ -36,16 +36,23 @@ urlpatterns = [
         view=views.TeamConfirmAskJoinView.as_view(),
         name="confirmAskJoin"
     ),
+    url(
+        regex=r"^deleterequest/(?P<pk>\d+)$",
+        view=views.DeletePlayerRequest, 
+        name="deleterequest"
+        ),`
+
    url(
         regex=r"^addplayer/(?P<pk>\d+)$",
         view=views.TeamAddPlayerView.as_view(),
         name="addplayer"
     ),
-    url(
-        regex=r"^removeplayer/(?P<pk>\d+)$",
-        view=views.TeamRemovePlayerView.as_view(),
-        name="removeplayer"
-    ),
+
+    # url(
+    #     regex=r"^removeplayer/(?P<pk>\d+)$",
+    #     view=views.TeamRemovePlayerView.as_view(),
+    #     name="removeplayer"
+    # ),
    # url(
    #      regex=r"^editmember/(?P<pk>\d+)$",
    #      view=views.ClubEditMemberView.as_view(),

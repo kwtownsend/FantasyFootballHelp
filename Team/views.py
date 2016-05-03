@@ -285,11 +285,12 @@ class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Deta
 
     def get(self, request, pk=None, *args, **kwargs):
         if pk:
-            player = PlayerRequest.objects.filter(pk=PlayerRequest.player.pk)
-            player_request_object = player.objects.get(pk=pk)
+            # PlayerRequest.objects.filter(pk=pk)
+            player_request_object = PlayerRequest.objects.get(pk=pk)
             # askingPlayer = player_request_object.requester
             teamToJoin = player_request_object.teamToJoin
-            teamToJoin.add_player(player_request_object)
+            player = Player.objects.get(pk=player_request_object.player.pk)
+            teamToJoin.add_player(player)
             player_request_object.delete()
             return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": teamToJoin.pk}))
 
@@ -329,7 +330,7 @@ class TeamRemovePlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, D
             player_request_object = PlayerRequest.objects.get(pk=pk)
             # teamToJoin = player_request_object.teamToJoin
             askingUser = self.request.user
-            player_request_object.remove(pk=pk)
+            delete(player_request_object)
             # player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
 
             # teamToJoin.add_player(player_request_object.player)

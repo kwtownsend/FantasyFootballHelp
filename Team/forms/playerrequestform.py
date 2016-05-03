@@ -18,7 +18,7 @@ import datetime
 class newPlayerRequest(ModelForm):
     class Meta:
         model = PlayerRequest
-        fields = ["teamToJoin", "player"]
+        fields = ["teamToJoin"]
 
     _requester = None
     _owner = None
