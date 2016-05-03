@@ -50,12 +50,12 @@ class TeamActionMixin(object):
 
 class TeamListView(NavBarMixin, ListView):
     model = Team
-    page_title = _("Club List")
+    page_title = _("Team List")
 
 
 class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailView):
     model = Team
-    page_title = _("Club Detail")
+    page_title = _("Team Detail")
 
     def get_context_data(self, **kwargs):
         # world+dog context data goes here
@@ -108,45 +108,46 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         context["player_actual_count"] = len(player_list)
         context["player_list"] = player_list
         context["player_request_list"] = player_requests
-        for p in player_list:
-            fpts += p.fpts
-            fptsg += p.fptsg
-            gp += p.gp
-            pyds += p.pyds
-            ptd += p.ptd
-            ryd += p.ryd
-            rtd += p.rtd
-            recyds += p.recyds
-            rectd += p.rectd
-            fum += p.fum
-            sack += p.sack
-            fr += p.fr
-            intercept += p.intercept
-            td += p.td
-            sfty += p.sfty
-            fg += p.fg
-            fgmiss += p.fgmiss
-            xpt += p.xpt
+        if(player_list != None):
+            for p in player_list:
+                fpts += p.fpts
+                fptsg += p.fptsg
+                gp += p.gp
+                pyds += p.pyds
+                ptd += p.ptd
+                ryd += p.ryd
+                rtd += p.rtd
+                recyds += p.recyds
+                rectd += p.rectd
+                fum += p.fum
+                sack += p.sack
+                fr += p.fr
+                intercept += p.intercept
+                td += p.td
+                sfty += p.sfty
+                fg += p.fg
+                fgmiss += p.fgmiss
+                xpt += p.xpt
+        if(len(player_requests) > 1):
+            dfpts = player_requests[0].player.fpts - player_requests[1].player.fpts
+            dfptsg = player_requests[0].player.fptsg - player_requests[1].player.fptsg
+            dgp = player_requests[0].player.gp - player_requests[1].player.gp
+            dpyds = player_requests[0].player.pyds - player_requests[1].player.pyds
+            dptd = player_requests[0].player.ptd - player_requests[1].player.ptd
+            dryd = player_requests[0].player.ryd - player_requests[1].player.ryd
+            drtd = player_requests[0].player.rtd - player_requests[1].player.rtd
+            drecyds = player_requests[0].player.recyds - player_requests[1].player.recyds
+            drectd = player_requests[0].player.rectd - player_requests[1].player.rectd
+            dfum = player_requests[0].player.fum - player_requests[1].player.fum
+            dsack = player_requests[0].player.sack - player_requests[1].player.sack
+            dfr = player_requests[0].player.fr - player_requests[1].player.fr
+            dintercept = player_requests[0].player.intercept - player_requests[1].player.intercept
+            dtd = player_requests[0].player.td - player_requests[1].player.td
+            dsfty = player_requests[0].player.sfty - player_requests[1].player.sfty
+            dfg = player_requests[0].player.fg - player_requests[1].player.fg
+            dfgmiss = player_requests[0].player.fgmiss - player_requests[1].player.fgmiss
+            dxpt = player_requests[0].player.xpt - player_requests[1].player.xpt
 
-        for p in player_requests:
-            dfpts += p.player.fpts
-            dfptsg += p.player.fptsg
-            dgp += p.player.gp
-            dpyds += p.player.pyds
-            dptd += p.player.ptd
-            dryd += p.player.ryd
-            drtd += p.player.rtd
-            drecyds += p.player.recyds
-            drectd += p.player.rectd
-            dfum += p.player.fum
-            dsack += p.player.sack
-            dfr += p.player.fr
-            dintercept += p.player.intercept
-            dtd += p.player.td
-            dsfty += p.player.sfty
-            dfg += p.player.fg
-            dfgmiss += p.player.fgmiss
-            dxpt += p.player.xpt
         context["fpts"] = fpts
         context["fptsg"] = fptsg
         context["gp"] = gp
