@@ -451,5 +451,8 @@ class TeamConfirmAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin,
 #     model = Club
 #     page_title = _("Club Edit")
 
-
+def compareRequestedPlayers(request, playerRequest):
+    player = PlayerRequest.objects.get(pk=playerRequest)
+    otherPlayers = PlayerRequest.objects.filter(requester=request.user)
+    return render(request, 'Team/comparePlayers.html', {"player": player, "others":otherPlayers })
 
