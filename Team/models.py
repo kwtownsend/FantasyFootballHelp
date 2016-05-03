@@ -25,6 +25,9 @@ class Team(models.Model):
 
     def add_player(self, new_player):
         self.players.add(Player.objects.get(pk=new_player.pk))
+
+    def delete_player(self, old_player):
+        self.players.remove(Player.objects.get(pk=old_player.pk))
         
     # def get_club_rating(self, club_member):
     #     players = User.objects.filter(team=self)

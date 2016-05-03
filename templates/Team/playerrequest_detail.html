@@ -7,12 +7,10 @@
     {% block content %}
     <div class="col-md-4"></div>
     <div class="container col-md-4">
-        <h3>This is the Team data entry form</h3>
-        {{ object.player.name }}
-        <br>
-        {{ object.teamToJoin.name }}
-        <br>
-        {{ object.requester.username }}
+        <h3>Success!</h3>
+        You have added {{ object.player.name }},
+        to the team {{ object.teamToJoin.name }}
+        for user {{ object.requester.username }}.
           <!-- <input href="Team:confirmAskJoin" type="submit" value="Save" /> -->
 
       </div>

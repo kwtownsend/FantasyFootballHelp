@@ -40,7 +40,12 @@ urlpatterns = [
         regex=r"^deleterequest/(?P<pk>\d+)$",
         view=views.DeletePlayerRequest, 
         name="deleterequest"
-        ),`
+        ),
+    url(
+        regex=r"^deleteplayer/(?P<team>\d+)/(?P<player>\d+)$",
+        view=views.DeleteTeamPlayer, 
+        name="deleteplayer"
+    ),
 
    url(
         regex=r"^addplayer/(?P<pk>\d+)$",

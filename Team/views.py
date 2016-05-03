@@ -85,6 +85,7 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         fg = 0
         fgmiss = 0
         xpt = 0
+
         context["player_request_count"] = len(player_requests)
         context["player_actual_count"] = len(player_list)
         context["player_list"] = player_list
@@ -321,12 +322,18 @@ class TeamAddPlayerView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Deta
             # else:
             #     return HttpResponseRedirect(redirect_to=reverse('welcome'))
 
-@login_required
-def deletePlayerRequest(request, pk):
+def DeletePlayerRequest(request, pk):
     req = PlayerRequest.objects.get(pk=pk)
     team = req.teamToJoin.pk
     req.delete()
     return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": team}))
+
+def DeleteTeamPlayer(request, teampk, playerpk):
+    team = Team.objects.get(pk=pk)
+    playertodelete = Team.players.pk
+    team.delete_player(playertodelete)
+    return HttpResponseRedirect(reverse('Team:detail', kwargs={"pk": team}))
+
 
 
 class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, CreateView):

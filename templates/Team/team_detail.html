@@ -54,7 +54,6 @@
     <td>{{ p.fg }}</td>
     <td>{{ p.fgmiss }}</td>
     <td>{{ p.xpt }}</td>
-    <td><center><a href="{% url 'Team:removeplayer' pk=1 %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
   </tr>
 {% endfor %}
 </table> 
@@ -106,7 +105,7 @@
     <td>{{ p.player.fgmiss }}</td>
     <td>{{ p.player.xpt }}</td>
     <td><center><a href="{% url 'Team:addplayer' p.pk %}" class="btn btn-primary btn-block">Add to Team</a></center><td>
-    <td><center><a href="{% url 'Team:removeplayer' p.pk %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
+    <td><center><a href="{% url 'Team:deleterequest' p.pk %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
   </tr>
 
 {%  endfor %}
