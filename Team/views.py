@@ -15,6 +15,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import signals
 
 from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from braces.views import LoginRequiredMixin
@@ -108,6 +109,7 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         context["player_actual_count"] = len(player_list)
         context["player_list"] = player_list
         context["player_request_list"] = player_requests
+<<<<<<< HEAD
         if(player_list != None):
             for p in player_list:
                 fpts += p.fpts
@@ -148,6 +150,48 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
             dfgmiss = player_requests[0].player.fgmiss - player_requests[1].player.fgmiss
             dxpt = player_requests[0].player.xpt - player_requests[1].player.xpt
 
+=======
+        for p in player_list:
+            fpts += p.fpts
+            fptsg += p.fptsg
+            gp += p.gp
+            pyds += p.pyds
+            ptd += p.ptd
+            ryd += p.ryd
+            rtd += p.rtd
+            recyds += p.recyds
+            rectd += p.rectd
+            fum += p.fum
+            sack += p.sack
+            fr += p.fr
+            intercept += p.intercept
+            td += p.td
+            sfty += p.sfty
+            fg += p.fg
+            fgmiss += p.fgmiss
+            xpt += p.xpt
+
+        for p in player_requests:
+            for s in player_requests:
+                dfpts = p.player.fpts - s.player.fpts
+                dfptsg = p.player.fptsg - s.player.fptsg
+                dgp = p.player.gp - s.player.gp
+                dpyds = p.player.pyds - s.player.pyds
+                dptd = p.player.ptd - s.player.ptd
+                dryd = p.player.ryd - s.player.ryd
+                drtd = p.player.rtd - s.player.rtd
+                drecyds = p.player.recyds - s.player.recyds
+                drectd = p.player.rectd - s.player.rectd
+                dfum = p.player.fum - s.player.fum
+                dsack = p.player.sack - s.player.sack
+                dfr = p.player.fr - s.player.fr
+                dintercept = p.player.intercept - s.player.intercept
+                dtd = p.player.td - s.player.td
+                dsfty = p.player.sfty - s.player.sfty
+                dfg = p.player.fg - s.player.fg
+                dfgmiss = p.player.fgmiss - s.player.fgmiss
+                dxpt = p.player.xpt - s.player.xpt
+>>>>>>> 19e1e1d918d89a672ad086452d037daef531897b
         context["fpts"] = fpts
         context["fptsg"] = fptsg
         context["gp"] = gp
@@ -451,5 +495,8 @@ class TeamConfirmAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin,
 #     model = Club
 #     page_title = _("Club Edit")
 
-
+def compareRequestedPlayers(request, playerRequest):
+    player = PlayerRequest.objects.get(pk=playerRequest)
+    otherPlayers = PlayerRequest.objects.filter(requester=request.user)
+    return render(request, 'Team/comparePlayers.html', {"player": player, "others":otherPlayers })
 

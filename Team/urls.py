@@ -78,4 +78,7 @@ urlpatterns = [
     #     view=views.ClubDeleteView.as_view(),
     #     name="delete"
     # ),
+    # added by Daniel Henderson
+    # call this url with the PK of a PlayerRequest object
+    url(r'^compare/(?P<playerRequest>\d+)$', views.compareRequestedPlayers, name='compare'),
 ]

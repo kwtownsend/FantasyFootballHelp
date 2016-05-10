@@ -126,7 +126,7 @@
     <td>{{ p.player.fgmiss }}</td>
     <td>{{ p.player.xpt }}</td>
     <td><center><a href="{% url 'Team:addplayer' p.pk %}" class="btn btn-primary btn-block">Add to Team</a></center><td>
-    <td><center><a href="{% url 'Team:deleterequest' p.pk %}" class="btn btn-primary btn-block">Remove from Team</a></center><td>
+    <td><center><a href="{% url 'Team:deleterequest' p.pk %}" class="btn btn-primary btn-block">Remove from Queue</a></center><td>
   </tr>
 
 {%  endfor %}

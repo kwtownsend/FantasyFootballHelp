@@ -1,0 +1,28 @@
+{% extends "base_leftSidebar.html" %}
+{% block content %}
+<h3> Comparing stats with {{ player.player.name }}
+<table>
+<tr>
+<td>Name</td>
+<td>Position</td>
+<td>Running Yards</td>
+<td>Sack</td>
+</tr>
+    {% for o in others %}
+    <tr>
+    <td>{{ o.player.name }}</td>
+    <td>{{ o.player.pos }}</td>
+    <td {% if o.ryd > player.player.ryd %}bgcolor="#FF0000"{% else %}bgcolor="#00FF00"{% endif %}>{{ o.player.ryd }}</td>
+    <!--This will alternately color the table cell red if other player's ryd stat is greater than player.ryd stat-->
+    <!--or green otherwise. Tweak the colors as needed. I don't know if ryd is better when larger.-->
+    <td>{{ o.player.sack|floatformat:2 }}</td>
+    <!-- see https://docs.djangoproject.com/en/1.9/ref/templates/builtins/#floatformat for other ways to format floats -->
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+{% block sidebar %}
+{#    TODO: make this look better, think up more content to put here. #}
+    Put list of your clubs<br/>
+<a href="{% url 'Team:new' %}">Create Your Own Club</a>
+{% endblock %}
