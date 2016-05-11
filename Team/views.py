@@ -1,7 +1,6 @@
 # clubs/views.py
 from Team.models import PlayerRequest
 from .models import Team, PlayerRequest
-from Queue.models import Queue
 from Players.models import Player
 from django.contrib.auth.models import User
 
@@ -22,7 +21,6 @@ from braces.views import LoginRequiredMixin
 from django.contrib import messages
 
 from Team.forms.team_forms import NewTeamForm
-from Team.forms.queue_forms import NewTeamPolicyForm
 from Team.forms.player_form import newPlayerForm
 from Team.forms.playerrequestform import newPlayerRequest
 
@@ -49,9 +47,17 @@ class TeamActionMixin(object):
         pass
         
 
-class TeamListView(NavBarMixin, ListView):
+class TeamListView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, ListView):
     model = Team
     page_title = _("Team List")
+    def get_context_data(self, **kwargs):
+        context = super(TeamListView, self).get_context_data(**kwargs)
+        this_owner = self.request.user
+        teams = Team.objects.filter(owner=this_owner)
+        context["team_list"] = teams
+
+        return context
+
 
 
 class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailView):
@@ -59,58 +65,94 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
     page_title = _("Team Detail")
 
     def get_context_data(self, **kwargs):
-        # world+dog context data goes here
-        context = super(TeamDetailView, self).get_context_data(**kwargs)
-        # self.navBar_context(context)
-        # context["page_title"] = _("Club Detail")
-        # context["available_thingys"] = self.thingys_available()
         this_team = self.get_object(queryset=None)
-        # player = self.get_object(queryset=None)
-        player_list = this_team.players.all()
-        player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
-        fpts = 0
-        fptsg = 0
-        gp = 0
-        pyds = 0
-        ptd = 0
-        ryd = 0
-        rtd = 0
-        recyds = 0
-        rectd = 0
-        fum = 0
-        sack = 0
-        fr = 0
-        intercept = 0
-        td = 0
-        sfty =0
-        fg = 0
-        fgmiss = 0
-        xpt = 0
-        dfpts = 0
-        dfptsg = 0
-        dgp = 0
-        dpyds = 0
-        dptd = 0
-        dryd = 0
-        drtd = 0
-        drecyds = 0
-        drectd = 0
-        dfum = 0
-        dsack = 0
-        dfr = 0
-        dintercept = 0
-        dtd = 0
-        dsfty =0
-        dfg = 0
-        dfgmiss = 0
-        dxpt = 0
+        if Team.is_owner(this_team, self.request.user):
+            context = super(TeamDetailView, self).get_context_data(**kwargs)
+            player_list = this_team.players.all()
+            player_requests = PlayerRequest.objects.filter(teamToJoin=this_team)
 
-        context["player_request_count"] = len(player_requests)
-        context["player_actual_count"] = len(player_list)
-        context["player_list"] = player_list
-        context["player_request_list"] = player_requests
-<<<<<<< HEAD
-        if(player_list != None):
+            fpts = 0
+            fptsg = 0
+            gp = 0
+            pyds = 0
+            ptd = 0
+            ryd = 0
+            rtd = 0
+            recyds = 0
+            rectd = 0
+            fum = 0
+            sack = 0
+            fr = 0
+            intercept = 0
+            td = 0
+            sfty =0
+            fg = 0
+            fgmiss = 0
+            xpt = 0
+            dfpts = 0
+            dfptsg = 0
+            dgp = 0
+            dpyds = 0
+            dptd = 0
+            dryd = 0
+            drtd = 0
+            drecyds = 0
+            drectd = 0
+            dfum = 0
+            dsack = 0
+            dfr = 0
+            dintercept = 0
+            dtd = 0
+            dsfty =0
+            dfg = 0
+            dfgmiss = 0
+            dxpt = 0
+
+            context["player_request_count"] = len(player_requests)
+            context["player_actual_count"] = len(player_list)
+            context["player_list"] = player_list
+            context["player_request_list"] = player_requests
+            if(player_list != None):
+                for p in player_list:
+                    fpts += p.fpts
+                    fptsg += p.fptsg
+                    gp += p.gp
+                    pyds += p.pyds
+                    ptd += p.ptd
+                    ryd += p.ryd
+                    rtd += p.rtd
+                    recyds += p.recyds
+                    rectd += p.rectd
+                    fum += p.fum
+                    sack += p.sack
+                    fr += p.fr
+                    intercept += p.intercept
+                    td += p.td
+                    sfty += p.sfty
+                    fg += p.fg
+                    fgmiss += p.fgmiss
+                    xpt += p.xpt
+            if(len(player_requests) > 1):
+                dfpts = player_requests[0].player.fpts - player_requests[1].player.fpts
+                dfptsg = player_requests[0].player.fptsg - player_requests[1].player.fptsg
+                dgp = player_requests[0].player.gp - player_requests[1].player.gp
+                dpyds = player_requests[0].player.pyds - player_requests[1].player.pyds
+                dptd = player_requests[0].player.ptd - player_requests[1].player.ptd
+                dryd = player_requests[0].player.ryd - player_requests[1].player.ryd
+                drtd = player_requests[0].player.rtd - player_requests[1].player.rtd
+                drecyds = player_requests[0].player.recyds - player_requests[1].player.recyds
+                drectd = player_requests[0].player.rectd - player_requests[1].player.rectd
+                dfum = player_requests[0].player.fum - player_requests[1].player.fum
+                dsack = player_requests[0].player.sack - player_requests[1].player.sack
+                dfr = player_requests[0].player.fr - player_requests[1].player.fr
+                dintercept = player_requests[0].player.intercept - player_requests[1].player.intercept
+                dtd = player_requests[0].player.td - player_requests[1].player.td
+                dsfty = player_requests[0].player.sfty - player_requests[1].player.sfty
+                dfg = player_requests[0].player.fg - player_requests[1].player.fg
+                dfgmiss = player_requests[0].player.fgmiss - player_requests[1].player.fgmiss
+                dxpt = player_requests[0].player.xpt - player_requests[1].player.xpt
+
+
             for p in player_list:
                 fpts += p.fpts
                 fptsg += p.fptsg
@@ -130,105 +172,78 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
                 fg += p.fg
                 fgmiss += p.fgmiss
                 xpt += p.xpt
-        if(len(player_requests) > 1):
-            dfpts = player_requests[0].player.fpts - player_requests[1].player.fpts
-            dfptsg = player_requests[0].player.fptsg - player_requests[1].player.fptsg
-            dgp = player_requests[0].player.gp - player_requests[1].player.gp
-            dpyds = player_requests[0].player.pyds - player_requests[1].player.pyds
-            dptd = player_requests[0].player.ptd - player_requests[1].player.ptd
-            dryd = player_requests[0].player.ryd - player_requests[1].player.ryd
-            drtd = player_requests[0].player.rtd - player_requests[1].player.rtd
-            drecyds = player_requests[0].player.recyds - player_requests[1].player.recyds
-            drectd = player_requests[0].player.rectd - player_requests[1].player.rectd
-            dfum = player_requests[0].player.fum - player_requests[1].player.fum
-            dsack = player_requests[0].player.sack - player_requests[1].player.sack
-            dfr = player_requests[0].player.fr - player_requests[1].player.fr
-            dintercept = player_requests[0].player.intercept - player_requests[1].player.intercept
-            dtd = player_requests[0].player.td - player_requests[1].player.td
-            dsfty = player_requests[0].player.sfty - player_requests[1].player.sfty
-            dfg = player_requests[0].player.fg - player_requests[1].player.fg
-            dfgmiss = player_requests[0].player.fgmiss - player_requests[1].player.fgmiss
-            dxpt = player_requests[0].player.xpt - player_requests[1].player.xpt
 
-=======
-        for p in player_list:
-            fpts += p.fpts
-            fptsg += p.fptsg
-            gp += p.gp
-            pyds += p.pyds
-            ptd += p.ptd
-            ryd += p.ryd
-            rtd += p.rtd
-            recyds += p.recyds
-            rectd += p.rectd
-            fum += p.fum
-            sack += p.sack
-            fr += p.fr
-            intercept += p.intercept
-            td += p.td
-            sfty += p.sfty
-            fg += p.fg
-            fgmiss += p.fgmiss
-            xpt += p.xpt
 
-        for p in player_requests:
-            for s in player_requests:
-                dfpts = p.player.fpts - s.player.fpts
-                dfptsg = p.player.fptsg - s.player.fptsg
-                dgp = p.player.gp - s.player.gp
-                dpyds = p.player.pyds - s.player.pyds
-                dptd = p.player.ptd - s.player.ptd
-                dryd = p.player.ryd - s.player.ryd
-                drtd = p.player.rtd - s.player.rtd
-                drecyds = p.player.recyds - s.player.recyds
-                drectd = p.player.rectd - s.player.rectd
-                dfum = p.player.fum - s.player.fum
-                dsack = p.player.sack - s.player.sack
-                dfr = p.player.fr - s.player.fr
-                dintercept = p.player.intercept - s.player.intercept
-                dtd = p.player.td - s.player.td
-                dsfty = p.player.sfty - s.player.sfty
-                dfg = p.player.fg - s.player.fg
-                dfgmiss = p.player.fgmiss - s.player.fgmiss
-                dxpt = p.player.xpt - s.player.xpt
->>>>>>> 19e1e1d918d89a672ad086452d037daef531897b
-        context["fpts"] = fpts
-        context["fptsg"] = fptsg
-        context["gp"] = gp
-        context["pyds"] = pyds
-        context["ptd"] = ptd
-        context["ryd"] = ryd
-        context["rtd"] = rtd
-        context["recyds"] = recyds
-        context["rectd"] = rectd
-        context["fum"] = fum
-        context["sack"] = sack
-        context["fr"] = fr
-        context["intercept"] = intercept
-        context["td"] = td
-        context["sfty"] = sfty
-        context["fg"] = fg
-        context["fgmiss"] = fgmiss
-        context["xpt"] = xpt
+            # count = 0;
 
-        context["dfpts"] = dfpts
-        context["dfptsg"] = dfptsg
-        context["dgp"] = dgp
-        context["dpyds"] = dpyds
-        context["dptd"] = dptd
-        context["dryd"] = dryd
-        context["drtd"] = drtd
-        context["drecyds"] = drecyds
-        context["drectd"] = drectd
-        context["dfum"] = dfum
-        context["dsack"] = dsack
-        context["dfr"] = dfr
-        context["dintercept"] = dintercept
-        context["dtd"] = dtd
-        context["dsfty"] = dsfty
-        context["dfg"] = dfg
-        context["dfgmiss"] = dfgmiss
-        context["dxpt"] = dxpt
+            # acomp = PlayerRequest.objects.filter(teamToJoin=this_team)
+            # qcomp = []
+
+            # for p in acomp:
+            #     for s in acomp:
+            #         if p.player.pk!=s.player.pk:
+            #             comp = acomp[1]
+            #             comp.player.name = count
+            #             comp.player.fpts = p.player.fpts - s.player.fpts
+            #             comp.player.fptsg = p.player.fptsg - s.player.fptsg
+            #             comp.player.gp = p.player.gp - s.player.gp
+            #             comp.player.pyds = p.player.pyds - s.player.pyds
+            #             comp.player.ptd = p.player.ptd - s.player.ptd
+            #             comp.player.ryd = p.player.ryd - s.player.ryd
+            #             comp.player.rtd = p.player.rtd - s.player.rtd
+            #             comp.player.recyds = p.player.recyds - s.player.recyds
+            #             comp.player.rectd = p.player.rectd - s.player.rectd
+            #             comp.player.fum = p.player.fum - s.player.fum
+            #             comp.player.sack = p.player.sack - s.player.sack
+            #             comp.player.fr = p.player.fr - s.player.fr
+            #             comp.player.intercept = p.player.intercept - s.player.intercept
+            #             comp.player.td = p.player.td - s.player.td
+            #             comp.player.sfty = p.player.sfty - s.player.sfty
+            #             comp.player.fg = p.player.fg - s.player.fg
+            #             comp.player.fgmiss = p.player.fgmiss - s.player.fgmiss
+            #             comp.player.xpt = p.player.xpt - s.player.xpt
+            #             qcomp.append(comp)
+            #             count = count + 1
+
+    ##                  returns list of comparisons 1v2 1v3...1vn 2v3 2v4...2vn
+            # context["comparison_list"]= qcomp
+            context["fpts"] = fpts
+            context["fptsg"] = fptsg
+            context["gp"] = gp
+            context["pyds"] = pyds
+            context["ptd"] = ptd
+            context["ryd"] = ryd
+            context["rtd"] = rtd
+            context["recyds"] = recyds
+            context["rectd"] = rectd
+            context["fum"] = fum
+            context["sack"] = sack
+            context["fr"] = fr
+            context["intercept"] = intercept
+            context["td"] = td
+            context["sfty"] = sfty
+            context["fg"] = fg
+            context["fgmiss"] = fgmiss
+            context["xpt"] = xpt
+
+            context["dfpts"] = dfpts
+            context["dfptsg"] = dfptsg
+            context["dgp"] = dgp
+            context["dpyds"] = dpyds
+            context["dptd"] = dptd
+            context["dryd"] = dryd
+            context["drtd"] = drtd
+            context["drecyds"] = drecyds
+            context["drectd"] = drectd
+            context["dfum"] = dfum
+            context["dsack"] = dsack
+            context["dfr"] = dfr
+            context["dintercept"] = dintercept
+            context["dtd"] = dtd
+            context["dsfty"] = dsfty
+            context["dfg"] = dfg
+            context["dfgmiss"] = dfgmiss
+            context["dxpt"] = dxpt
         # all_entries = Team.players.all()
         # context["top_panel_name"] = "Members"
         # context["bottom_panel_name"] = "Request Membership"
@@ -249,13 +264,13 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
         return context
 
 
-class TeamAndPolicyCreateView(LoginRequiredMixin, TeamActionMixin, NavBarMixin):
-    form_classes = {
-        'newteam': NewTeamForm,
-        'newpolicy': NewTeamPolicyForm,
-    }
-    # the 'templates/' part of the path is implied
-    template_name = 'Team/team_and_policy_form.html'
+# class TeamAndPolicyCreateView(LoginRequiredMixin, TeamActionMixin, NavBarMixin):
+#     form_classes = {
+#         'newteam': NewTeamForm,
+#         'newpolicy': NewTeamPolicyForm,
+#     }
+#     # the 'templates/' part of the path is implied
+#     template_name = 'Team/team_and_policy_form.html'
 
 
 
@@ -268,6 +283,8 @@ class TeamCreateView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, CreateVie
 
     def get_form(self, **kwargs):
         form = super(TeamCreateView, self).get_form(**kwargs)
+        form.set_owner(self.request.user)
+
         # form.set_leader(self.request.user)
         # form.set_policy(Queue.objects.create(public=True, leader=self.request.user))
         # form.set_owner(self.request.user)

@@ -1,7 +1,6 @@
 from django.forms import ModelForm
 
 from Team.models import Team
-from Queue.models import Queue
 
 from django.http import Http404
 import datetime
@@ -16,7 +15,7 @@ class NewTeamForm(ModelForm):
     # policies = models.ForeignKey('clubPolicies.ClubPolicy')
     class Meta:
         model = Team
-        fields = ["name", "owner"]
+        fields = ["name"]
 
     # _leader = None
     _first_member = None
@@ -48,7 +47,7 @@ class NewTeamForm(ModelForm):
         # old_policy.delete()
         # else:
         #     return Http404("No policies set")
-
+        self.instance.owner = self._first_member
         # self.instance.add_date = datetime.datetime.now()
 
         resp = super(NewTeamForm, self).save(*args, **kwargs)

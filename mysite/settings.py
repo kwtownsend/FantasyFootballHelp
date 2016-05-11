@@ -45,7 +45,6 @@ INSTALLED_APPS = (
     'webapp',
     'login',
     'Players',
-    'Queue',
     'Team',
 )
 

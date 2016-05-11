@@ -1,19 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from Queue.models import Queue
 from Players.models import Player
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=20, help_text='Team name')
-    # description = models.CharField(max_length=180, help_text='Club description')
-    # zipcode = models.CharField(max_length=5)
-    # add_date = models.DateField(default=timezone.now)
+    name = models.CharField(max_length=20)
     owner = models.ForeignKey(User)
     players = models.ManyToManyField(Player)
-    # policies = models.ForeignKey('Queue.Queue')
-    # will leave policy object for later
     
     def __unicode__(self):
         return self.name
@@ -29,8 +23,6 @@ class Team(models.Model):
     def delete_player(self, old_player):
         self.players.remove(Player.objects.get(pk=old_player.pk))
         
-    # def get_club_rating(self, club_member):
-    #     players = User.objects.filter(team=self)
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
@@ -67,7 +59,7 @@ class Team(models.Model):
 class PlayerRequest(models.Model):
     player = models.ForeignKey(Player, default=1)
     requester = models.ForeignKey(User)
-    teamToJoin = models.ForeignKey(Team)
+    teamToJoin = models.ForeignKey(Team, verbose_name='Team Name')
     # request_date = models.DateField(default=timezone.now)
     reasonMessage = models.CharField(max_length=200, help_text="Why do you want to join this club?")
 
