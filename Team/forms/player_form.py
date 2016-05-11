@@ -7,12 +7,6 @@ import datetime
 
 
 
-# class PlayerRequest(models.Model):
-#     requester = models.ForeignKey(User)
-#     teamToJoin = models.ForeignKey(Team)
-#     # request_date = models.DateField(default=timezone.now)
-    # reasonMessage = models.CharField(max_length=200, help_text="Why do you want to join this club?")
-
 
 class newPlayerForm(ModelForm):
     class Meta:
