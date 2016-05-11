@@ -27,7 +27,7 @@ from Team.forms.playerrequestform import newPlayerRequest
 # from Team.forms.member_form import newMemberForm
 from helpers.navbar_helpers import NavBarMixin
 from django.contrib import messages
-
+import copy
 
 class TeamActionMixin(object):
     
@@ -174,39 +174,40 @@ class TeamDetailView(LoginRequiredMixin, TeamActionMixin, NavBarMixin, DetailVie
                 xpt += p.xpt
 
 
-            # count = 0;
+            count = 0;
 
-            # acomp = PlayerRequest.objects.filter(teamToJoin=this_team)
-            # qcomp = []
+            acomp = PlayerRequest.objects.filter(teamToJoin=this_team)
+            qcomp = []
 
-            # for p in acomp:
-            #     for s in acomp:
-            #         if p.player.pk!=s.player.pk:
-            #             comp = acomp[1]
-            #             comp.player.name = count
-            #             comp.player.fpts = p.player.fpts - s.player.fpts
-            #             comp.player.fptsg = p.player.fptsg - s.player.fptsg
-            #             comp.player.gp = p.player.gp - s.player.gp
-            #             comp.player.pyds = p.player.pyds - s.player.pyds
-            #             comp.player.ptd = p.player.ptd - s.player.ptd
-            #             comp.player.ryd = p.player.ryd - s.player.ryd
-            #             comp.player.rtd = p.player.rtd - s.player.rtd
-            #             comp.player.recyds = p.player.recyds - s.player.recyds
-            #             comp.player.rectd = p.player.rectd - s.player.rectd
-            #             comp.player.fum = p.player.fum - s.player.fum
-            #             comp.player.sack = p.player.sack - s.player.sack
-            #             comp.player.fr = p.player.fr - s.player.fr
-            #             comp.player.intercept = p.player.intercept - s.player.intercept
-            #             comp.player.td = p.player.td - s.player.td
-            #             comp.player.sfty = p.player.sfty - s.player.sfty
-            #             comp.player.fg = p.player.fg - s.player.fg
-            #             comp.player.fgmiss = p.player.fgmiss - s.player.fgmiss
-            #             comp.player.xpt = p.player.xpt - s.player.xpt
-            #             qcomp.append(comp)
-            #             count = count + 1
+            for p in acomp:
+                for s in acomp:
+                    if p.player.pk!=s.player.pk:
+                        comp=copy.deepcopy(acomp[0])
+                        comp.player.pk = p.player.pk
+                        comp.player.name = p.player.name + " vs " + s.player.name
+                        comp.player.fpts = p.player.fpts - s.player.fpts
+                        comp.player.fptsg = p.player.fptsg - s.player.fptsg
+                        comp.player.gp = p.player.gp - s.player.gp
+                        comp.player.pyds = p.player.pyds - s.player.pyds
+                        comp.player.ptd = p.player.ptd - s.player.ptd
+                        comp.player.ryd = p.player.ryd - s.player.ryd
+                        comp.player.rtd = p.player.rtd - s.player.rtd
+                        comp.player.recyds = p.player.recyds - s.player.recyds
+                        comp.player.rectd = p.player.rectd - s.player.rectd
+                        comp.player.fum = p.player.fum - s.player.fum
+                        comp.player.sack = p.player.sack - s.player.sack
+                        comp.player.fr = p.player.fr - s.player.fr
+                        comp.player.intercept = p.player.intercept - s.player.intercept
+                        comp.player.td = p.player.td - s.player.td
+                        comp.player.sfty = p.player.sfty - s.player.sfty
+                        comp.player.fg = p.player.fg - s.player.fg
+                        comp.player.fgmiss = p.player.fgmiss - s.player.fgmiss
+                        comp.player.xpt = p.player.xpt - s.player.xpt
+                        qcomp.append(comp)
+                        count = count + 1
 
-    ##                  returns list of comparisons 1v2 1v3...1vn 2v3 2v4...2vn
-            # context["comparison_list"]= qcomp
+    #                  returns list of comparisons 1v2 1v3...1vn 2v3 2v4...2vn
+            context["comparison_list"]= qcomp
             context["fpts"] = fpts
             context["fptsg"] = fptsg
             context["gp"] = gp
@@ -474,7 +475,7 @@ class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Create
         form = super(TeamAskJoinView, self).get_form(**kwargs)
         form.set_requester(self.request.user)
         # the_team = Team.objects.get(pk=1)
-        # form.set_teamToJoin()
+        form.set_teams( Team.objects.filter(owner = self.request.user))
         print(self.kwargs['pk'])
         print(('checking'))
         # if 'pk' in kwargs:

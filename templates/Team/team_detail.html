@@ -103,8 +103,9 @@
     <td <b>FG Miss  &nbsp;</b> </td>
     <td <b>Ex Pts  &nbsp;</b> </td>
   </tr>
+
 {% for p in player_request_list %}
-  <tr>
+
     <td style="white-space:nowrap;">{{ p.player.name }} &nbsp;</td>
     <td>{{ p.player.pos }}</td>
     <td>{{ p.player.fpts }}</td>
@@ -128,28 +129,34 @@
     <td><center><a href="{% url 'Team:addplayer' p.pk %}" class="btn btn-primary btn-block">Add to Team</a></center><td>
     <td><center><a href="{% url 'Team:deleterequest' p.pk %}" class="btn btn-primary btn-block">Remove from Queue</a></center><td>
   </tr>
+{% for s in comparison_list %}
 
+
+    {% if p.player.pk == s.player.pk %}
+      <td style="white-space:nowrap;">{{ s.player.name }} &nbsp;</td>
+    <td>{{ s.player.pos }}</td>
+    <td>{{ s.player.fpts }}</td>
+    <td>{{ s.player.fptsg }}</td>
+    <td>{{ s.player.gp }}</td>
+    <td>{{ s.player.pyds }}</td>
+    <td>{{ s.player.ptd }}</td>
+    <td>{{ s.player.ryd }}</td>
+    <td>{{ s.player.rtd }}</td>
+    <td>{{ s.player.recyds }}</td>
+    <td>{{ s.player.rectd }}</td>
+    <td>{{ s.player.fum }}</td>
+    <td>{{ s.player.sack }}</td>
+    <td>{{ s.player.fr }}</td>
+    <td>{{ s.player.intercept }}</td>
+    <td>{{ s.player.td }}</td>
+    <td>{{ s.player.sfty }}</td>
+    <td>{{ s.player.fg }}</td>
+    <td>{{ s.player.fgmiss }}</td>
+    <td>{{ s.player.xpt }}</td>
+  </tr>
+{% endif %}
 {%  endfor %}
-<td <b>Player 1 and Player 2 Comparison  &nbsp;</b> </td>
-    <td></td>
-    <td>{{ dfpts }}</td>
-    <td>{{ dfptsg }}</td>
-    <td>{{ dgp }}</td>
-    <td>{{ dpyds }} </td>
-    <td>{{ dptd }}</td>
-    <td>{{ dryd }}</td>
-    <td>{{ drtd }}</td>
-    <td>{{ drecyds }}</td>
-    <td>{{ drectd }}</td>
-    <td>{{ dfum }}</td>
-    <td>{{ dsack }}</td>
-    <td>{{ dfr }}</td>
-    <td>{{ dintercept }}</td>
-    <td>{{ dtd }}</td>
-    <td>{{ dsfty }}</td>
-    <td>{{ dfg }}</td>
-    <td>{{ dfgmiss }}</td>
-    <td>{{ dxpt }}</td>
+{% endfor %}
 
 </table> 
     <br />
@@ -159,3 +166,5 @@
 
 
 {% endblock %}
+
+    
