@@ -472,10 +472,13 @@ class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Create
 
     # fields = ['reasonMessage', ]
     def get_form(self, **kwargs):
-        form = super(TeamAskJoinView, self).get_form(**kwargs)
+        form = newPlayerRequest(current_owner=self.request.user)
+        # form = super(TeamAskJoinView, self).get_form(**kwargs)
+        
+        # kwargs['current_owner']=self.request.user
         form.set_requester(self.request.user)
         # the_team = Team.objects.get(pk=1)
-        form.set_teams( Team.objects.filter(owner = self.request.user))
+        myteams = Team.objects.filter(owner = self.request.user)
         print(self.kwargs['pk'])
         print(('checking'))
         # if 'pk' in kwargs:
@@ -484,6 +487,7 @@ class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Create
         form.set_player(self.kwargs['pk'])
         # how can I get the pk of the current club from the url, or from somewhere?
         # form.set_teamToJoin(self.kwargs['pk'])
+        # form['user']=self.request.user
         return form
 
     def get_success_url(self):
@@ -492,6 +496,8 @@ class TeamAskJoinView(LoginRequiredMixin, PlayerActionMixin, NavBarMixin, Create
     def form_valid(self, form):
         messages.info(self.request, self.success_msg)
         return super(PlayerActionMixin, self).form_valid(form)
+
+
 
 
 

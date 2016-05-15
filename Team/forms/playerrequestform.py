@@ -2,6 +2,7 @@ from django.forms import ModelForm
 
 from Team.models import Team, PlayerRequest
 from Players.models import Player
+from django.contrib.auth.models import User
 
 from django.http import Http404
 import datetime
@@ -29,6 +30,12 @@ class newPlayerRequest(ModelForm):
 
     def set_requester(self, requester):
         self._requester = requester
+
+    def __init__(self, *args, **kwargs):
+        curr = kwargs.pop('current_owner')
+        super(newPlayerRequest, self).__init__(*args, **kwargs)
+        self.fields['teamToJoin'].queryset = Team.objects.filter(owner=curr)
+
 
     def set_owner(self, requester):
         self._owner = owner
